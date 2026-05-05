@@ -1,0 +1,29 @@
+@startuml
+title Diagrama de clases - Proyecto Alquiler PC
+
+class Componente {
+  - id: Long
+  - nombre: String
+  - tipo: String
+  - estado: String
+}
+
+class Usuario {
+  - id: Long
+  - nombre: String
+  - email: String
+  - password: String
+  - rol: String
+}
+
+class Alquiler {
+  - id: Long
+  - fechaInicio: LocalDate
+  - fechaFin: LocalDate
+  - estado: String
+}
+
+Usuario "1" -- "0..*" Alquiler : realiza
+Componente "1" -- "0..*" Alquiler : se alquila en
+
+@enduml

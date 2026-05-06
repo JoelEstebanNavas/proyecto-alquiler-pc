@@ -3,6 +3,8 @@ package com.proyecto.backend.controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.proyecto.backend.model.Componente;
 import com.proyecto.backend.repository.ComponenteRepository;
@@ -21,7 +23,12 @@ public class ComponenteController {
     }
 
     @PostMapping
-    public Componente guardar(@RequestBody Componente c) {
-        return repo.save(c);
+    public ResponseEntity<?> guardar(@RequestBody Componente c,
+            @RequestHeader(value = "X-User-Role", required = false) String rol) {
+        if (rol == null || !"ADMIN".equalsIgnoreCase(rol)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Solo un administrador puede anadir componentes");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(repo.save(c));
     }
 }

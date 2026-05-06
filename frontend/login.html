@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<h2>Iniciar sesion</h2>
+<div class="page-shell login-shell">
+    <div class="login-card">
+        <p class="eyebrow">Acceso al sistema</p>
+        <h2>Iniciar sesion</h2>
+        <p class="login-text">Entra como administrador para gestionar componentes o como usuario para ver y alquilar equipos.</p>
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Contrasena">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Contrasena">
 
-<button onclick="login()">Entrar</button>
-<p id="mensajeLogin"></p>
-<p><a href="index.html">Volver a componentes</a></p>
+        <button onclick="login()">Entrar</button>
+        <p id="mensajeLogin" class="status-text"></p>
+        <p><a class="link-inline" href="index.html">Volver a componentes</a></p>
+    </div>
+</div>
 
 <script src="app.js"></script>
 </body>

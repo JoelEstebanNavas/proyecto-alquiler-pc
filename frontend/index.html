@@ -8,11 +8,25 @@
 </head>
 <body>
 
-<h1>Gestion de Componentes</h1>
+<div class="page-shell">
+<header class="hero">
+    <div>
+        <p class="eyebrow">Sistema de alquiler</p>
+        <h1>Gestion de Componentes</h1>
+        <p class="hero-text">Consulta los equipos disponibles, gestiona el catalogo y realiza alquileres segun el rol del usuario.</p>
+    </div>
+    <div class="user-panel">
+        <p id="usuarioInfo">Invitado</p>
+        <div class="user-actions">
+            <a class="link-button" href="login.html">Ir al login</a>
+            <button type="button" class="secondary-button" onclick="cerrarSesion()">Cerrar sesion</button>
+        </div>
+    </div>
+</header>
 
 <div class="container">
 
-    <div class="form">
+    <div class="form" id="bloqueAdmin">
         <h2>Anadir componente</h2>
         <input id="nombre" placeholder="Nombre">
         <input id="tipo" placeholder="Tipo">
@@ -22,9 +36,11 @@
 
     <div class="listado">
         <h2>Componentes</h2>
+        <p id="mensajeRol" class="status-text"></p>
         <ul id="lista"></ul>
     </div>
 
+</div>
 </div>
 
 <script src="app.js"></script>

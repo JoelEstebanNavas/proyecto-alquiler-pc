@@ -74,7 +74,7 @@ Campos:
 ## 5. Diagramas UML actualizados
 Se ha incluido un diagrama de clases editable en:
 
-![Imagen del UML](UML.png)
+![Imagen del UML](uml/UML.png)
 
 - `uml/diagrama-clases.puml`
 
@@ -91,7 +91,7 @@ proyecto-alquiler-pc/
 |  |- index.html
 |  |- login.html
 |  |- app.js
-|  |- styles.css
+|  |- Css.css
 |- backend/
 |  |- backend-alquiler/
 |     |- src/main/java/com/proyecto/backend/
@@ -102,9 +102,11 @@ proyecto-alquiler-pc/
 |  |- datos_prueba.sql
 |- uml/
 |  |- diagrama-clases.puml
+|  |- UML.png
+|- Guia.md
 |- README.md
 |- PRUEBAS.md
-|- ENTREGA_2.md
+|- Evidencias.pdf
 ```
 
 ### 6.2 Desarrollo de las funcionalidades principales
@@ -115,6 +117,8 @@ Las funcionalidades implementadas actualmente son:
 - Registro basico de usuarios.
 - Login basico de usuarios.
 - Alta y consulta de alquileres mediante endpoints REST.
+- Separacion basica de funcionalidades por rol.
+- Alquiler de componentes disponibles por parte del usuario.
 
 ### 6.3 Integracion entre capas
 La integracion entre capas se realiza de la siguiente forma:
@@ -130,6 +134,8 @@ Se ha implementado una base funcional para usuarios:
 - Registro de usuario mediante endpoint `POST /api/auth/register`
 - Login mediante endpoint `POST /api/auth/login`
 - Listado de usuarios mediante endpoint `GET /api/auth/usuarios`
+- Restriccion basica para que solo `ADMIN` pueda anadir componentes
+- Restriccion basica para que solo `USER` pueda alquilar componentes
 
 El control de acceso es basico y no incluye seguridad avanzada, cifrado de contrasenas ni sesiones protegidas. Esta parte queda como posible mejora futura.
 
@@ -170,6 +176,8 @@ Incluye pruebas manuales de:
 - Validacion de formulario
 - Login correcto
 - Login incorrecto
+- Alquiler de componente disponible con rol de usuario
+- Restriccion de alta de componentes para usuarios no administradores
 - Verificacion de datos en MySQL
 
 ### 8.2 Evidencias
@@ -180,12 +188,16 @@ Para completar la entrega deben adjuntarse evidencias como:
 - Captura de la base de datos con datos insertados
 - Respuestas de endpoints probados
 
+Las evidencias se adjuntan en el documento `Evidencias.pdf`.
+
 ### 8.3 Incidencias detectadas y soluciones aplicadas
 Durante el desarrollo se detectaron las siguientes incidencias:
 
 - Problemas de codificacion de caracteres en el frontend
 - Clases de usuarios y alquileres vacias en una fase inicial
 - Ausencia de scripts SQL y de documentacion tecnica propia
+- Problemas puntuales de conexion entre Spring Boot y MySQL
+- Necesidad de ajustar la interfaz para diferenciar las acciones de `ADMIN` y `USER`
 
 Soluciones aplicadas:
 
@@ -193,6 +205,8 @@ Soluciones aplicadas:
 - Implementacion basica de entidades, repositorios y controladores
 - Creacion de scripts de esquema y datos de prueba
 - Incorporacion de documentacion de proyecto, pruebas y UML
+- Revision de la configuracion del backend para la conexion con MySQL
+- Separacion funcional de la interfaz segun el rol del usuario
 
 ## 9. Despliegue
 
@@ -228,5 +242,4 @@ Como mejoras futuras se plantean:
 - Seguridad con Spring Security
 - Cifrado de contrasenas
 - Validaciones mas completas
-- Mejoras visuales del frontend
 - Mas pruebas automaticas y cobertura real

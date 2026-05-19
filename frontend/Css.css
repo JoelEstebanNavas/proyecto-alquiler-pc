@@ -158,6 +158,11 @@ body {
     border: 1px solid rgba(215, 225, 234, 0.72);
 }
 
+.form-highlight {
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14), var(--shadow-soft);
+    border-color: rgba(37, 99, 235, 0.45);
+}
+
 .login-shell {
     min-height: 100vh;
     display: flex;

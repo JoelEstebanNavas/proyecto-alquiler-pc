@@ -445,6 +445,7 @@ function limpiarFormulario() {
 }
 
 function prepararEdicion(componente) {
+    const formulario = document.getElementById("bloqueAdmin");
     componenteEnEdicionId = componente.id;
     document.getElementById("nombre").value = componente.nombre;
     document.getElementById("tipo").value = componente.tipo;
@@ -467,6 +468,14 @@ function prepararEdicion(componente) {
     if (botonCancelar) {
         botonCancelar.style.display = "inline-flex";
     }
+    if (formulario) {
+        formulario.scrollIntoView({ behavior: "smooth", block: "start" });
+        formulario.classList.add("form-highlight");
+        setTimeout(() => {
+            formulario.classList.remove("form-highlight");
+        }, 1800);
+    }
+    document.getElementById("nombre").focus();
 }
 
 function cancelarEdicion() {

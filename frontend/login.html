@@ -9,17 +9,32 @@
 <body>
 
 <div class="page-shell login-shell">
-    <div class="login-card">
-        <p class="eyebrow">Acceso al sistema</p>
-        <h2>Iniciar sesion</h2>
-        <p class="login-text">Entra como administrador para gestionar componentes o como usuario para ver y alquilar equipos.</p>
+    <div class="login-layout">
+        <aside class="login-side">
+            <p class="eyebrow">Proyecto final</p>
+            <h1>Acceso al sistema</h1>
+            <p class="login-text">Inicia sesion para administrar el catalogo o alquilar componentes disponibles desde una unica interfaz.</p>
+            <div class="demo-box">
+                <p class="panel-label">Usuarios de prueba</p>
+                <p class="demo-user"><strong>Admin:</strong> admin@alquilerpc.com / admin123</p>
+                <p class="demo-user"><strong>User:</strong> usuario@alquilerpc.com / user123</p>
+            </div>
+        </aside>
 
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Contrasena">
+        <div class="login-card">
+            <p class="eyebrow">Inicio de sesion</p>
+            <h2>Bienvenido</h2>
+            <p class="login-text">Introduce tu email y tu contrasena para continuar.</p>
 
-        <button onclick="login()">Entrar</button>
-        <p id="mensajeLogin" class="status-text"></p>
-        <p><a class="link-inline" href="index.html">Volver a componentes</a></p>
+            <label class="field-label" for="email">Email</label>
+            <input type="email" id="email" placeholder="usuario@alquilerpc.com">
+            <label class="field-label" for="password">Contrasena</label>
+            <input type="password" id="password" placeholder="Introduce tu contrasena">
+
+            <button onclick="login()">Entrar</button>
+            <p id="mensajeLogin" class="status-text"></p>
+            <p><a class="link-inline" href="index.html">Volver a componentes</a></p>
+        </div>
     </div>
 </div>
 

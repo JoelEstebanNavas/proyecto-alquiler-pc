@@ -28,6 +28,9 @@ public class Alquiler {
     @Column(nullable = false)
     private String estado;
 
+    @Column(name = "metodo_pago", nullable = false)
+    private String metodoPago;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
@@ -66,6 +69,14 @@ public class Alquiler {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
     }
 
     public Usuario getUsuario() {

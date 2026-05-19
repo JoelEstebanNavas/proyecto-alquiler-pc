@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar alquiler</title>
+    <link rel="stylesheet" href="Css.css">
+</head>
+<body>
+
+<div class="page-shell login-shell">
+    <div class="login-layout">
+        <aside class="login-side">
+            <p class="eyebrow">Proceso de alquiler</p>
+            <h1>Confirma tu reserva</h1>
+            <p class="login-text">Selecciona las fechas del alquiler y completa un metodo de pago basico para finalizar la solicitud.</p>
+            <div class="demo-box" id="resumenComponente">
+                <p class="panel-label">Componente seleccionado</p>
+                <p class="demo-user">Todavia no se ha seleccionado ningun componente.</p>
+            </div>
+        </aside>
+
+        <div class="login-card alquiler-card">
+            <p class="eyebrow">Paso 1 de 2</p>
+            <h2>Datos del alquiler</h2>
+            <p class="login-text">Completa los datos del cliente y el periodo del alquiler antes de pasar al pago.</p>
+
+            <label class="field-label" for="nombreCompleto">Nombre completo</label>
+            <input type="text" id="nombreCompleto" placeholder="Nombre y apellidos">
+
+            <label class="field-label" for="telefono">Telefono</label>
+            <input type="text" id="telefono" placeholder="Ejemplo: 612345678">
+
+            <label class="field-label" for="direccion">Direccion</label>
+            <input type="text" id="direccion" placeholder="Calle, numero y ciudad">
+
+            <label class="field-label" for="fechaInicio">Fecha de inicio</label>
+            <input type="date" id="fechaInicio">
+
+            <label class="field-label" for="fechaFin">Fecha de fin</label>
+            <input type="date" id="fechaFin">
+
+            <div class="user-actions form-actions">
+                <button type="button" onclick="continuarAlPago()">Continuar al pago</button>
+                <a class="link-button muted-link" href="index.html">Cancelar</a>
+            </div>
+
+            <p id="mensajeAlquilerFormulario" class="status-text"></p>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS alquileres (
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
     estado VARCHAR(50) NOT NULL,
+    metodo_pago VARCHAR(100) NOT NULL,
     usuario_id BIGINT NOT NULL,
     componente_id BIGINT NOT NULL,
     CONSTRAINT fk_alquiler_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id),

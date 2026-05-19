@@ -322,10 +322,37 @@ button:hover,
     gap: 16px;
 }
 
+.filters-bar {
+    display: grid;
+    grid-template-columns: minmax(240px, 1.5fr) repeat(2, minmax(180px, 1fr)) auto;
+    gap: 14px;
+    align-items: end;
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #f8fbff 0%, #f3f7fb 100%);
+    border: 1px solid #e1e8f0;
+}
+
+.filter-group .field-label {
+    margin-top: 0;
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .listado ul {
     list-style: none;
     padding: 0;
     margin: 18px 0 0;
+}
+
+#lista.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
 }
 
 .item-card {
@@ -341,6 +368,13 @@ button:hover,
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
 }
 
+#lista.catalog-grid .item-card {
+    height: 100%;
+    margin-bottom: 0;
+    flex-direction: column;
+    align-items: stretch;
+}
+
 .item-image {
     width: 118px;
     height: 78px;
@@ -349,6 +383,11 @@ button:hover,
     flex-shrink: 0;
     background: #eef3f8;
     border: 1px solid #d9e2ec;
+}
+
+#lista.catalog-grid .item-image {
+    width: 100%;
+    height: 150px;
 }
 
 .item-info {
@@ -364,6 +403,14 @@ button:hover,
 
 .item-info span {
     color: var(--text-soft);
+}
+
+#lista.catalog-grid .item-info {
+    width: 100%;
+}
+
+#lista.catalog-grid .item-card button {
+    width: 100%;
 }
 
 .badge {
@@ -413,6 +460,7 @@ button:hover,
 }
 
 #mensajeLogin,
+#mensajeFiltros,
 #mensajeRol,
 #mensajeAlquileres {
     margin-top: 14px;
@@ -442,6 +490,15 @@ button:hover,
         align-items: start;
         flex-direction: column;
     }
+
+    .filters-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search-group,
+    .filter-actions {
+        grid-column: 1 / -1;
+    }
 }
 
 @media (max-width: 560px) {
@@ -464,5 +521,13 @@ button:hover,
     .item-card {
         align-items: start;
         flex-direction: column;
+    }
+
+    .filters-bar {
+        grid-template-columns: 1fr;
+    }
+
+    #lista.catalog-grid {
+        grid-template-columns: 1fr;
     }
 }

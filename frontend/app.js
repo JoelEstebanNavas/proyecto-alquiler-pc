@@ -2,6 +2,7 @@ const URL = "http://localhost:8080/api/componentes";
 const AUTH_URL = "http://localhost:8080/api/auth";
 const ALQUILER_URL = "http://localhost:8080/api/alquileres";
 let componenteEnEdicionId = null;
+let componentesCache = [];
 
 window.onload = function() {
     if (document.getElementById("lista")) {
@@ -35,9 +36,17 @@ function limpiarProcesoAlquiler() {
     localStorage.removeItem("alquilerEnProceso");
 }
 
+function mostrarMensaje(id, texto) {
+    const nodo = document.getElementById(id);
+    if (nodo) {
+        nodo.textContent = texto;
+    }
+}
+
 function configurarVistaPorRol() {
     const usuario = obtenerUsuarioActivo();
     const container = document.querySelector(".container");
+    const lista = document.getElementById("lista");
     const bloqueAdmin = document.getElementById("bloqueAdmin");
     const bloqueAlquileres = document.getElementById("bloqueAlquileres");
     const mensajeRol = document.getElementById("mensajeRol");
@@ -63,6 +72,9 @@ function configurarVistaPorRol() {
         if (container) {
             container.classList.add("single-column");
         }
+        if (lista) {
+            lista.classList.add("catalog-grid");
+        }
         if (bloqueAdmin) {
             bloqueAdmin.style.display = "none";
         }
@@ -79,6 +91,9 @@ function configurarVistaPorRol() {
         if (container) {
             container.classList.remove("single-column");
         }
+        if (lista) {
+            lista.classList.remove("catalog-grid");
+        }
         if (bloqueAdmin) {
             bloqueAdmin.style.display = "block";
         }
@@ -91,6 +106,9 @@ function configurarVistaPorRol() {
     } else {
         if (container) {
             container.classList.add("single-column");
+        }
+        if (lista) {
+            lista.classList.add("catalog-grid");
         }
         if (bloqueAdmin) {
             bloqueAdmin.style.display = "none";
@@ -108,80 +126,140 @@ function cargar() {
     fetch(URL)
         .then(response => response.json())
         .then(data => {
-            const lista = document.getElementById("lista");
-            lista.innerHTML = "";
-            const usuario = obtenerUsuarioActivo();
-
+            componentesCache = data;
             actualizarResumen(data);
             cargarAlquileresUsuario();
-
-            if (data.length === 0) {
-                const li = document.createElement("li");
-                li.className = "item-card";
-                li.innerHTML = `
-                    <div class="item-info">
-                        <strong>No hay componentes registrados</strong>
-                        <span>Anade un componente nuevo para empezar a trabajar con el catalogo.</span>
-                    </div>
-                `;
-                lista.appendChild(li);
-                return;
-            }
-
-            data.forEach(c => {
-                const li = document.createElement("li");
-                li.className = "item-card";
-
-                const imagen = document.createElement("img");
-                imagen.className = "item-image";
-                imagen.src = obtenerImagenPorTipo(c.tipo);
-                imagen.alt = c.tipo;
-                li.appendChild(imagen);
-
-                const info = document.createElement("div");
-                info.className = "item-info";
-                info.innerHTML = `
-                    <strong>${c.nombre}</strong>
-                    <span>${c.tipo}</span>
-                    <span class="badge ${c.estado.toLowerCase()}">${c.estado}</span>
-                `;
-                li.appendChild(info);
-
-                if (usuario && usuario.rol === "USER" && c.estado === "Disponible") {
-                    const boton = document.createElement("button");
-                    boton.type = "button";
-                    boton.className = "rent-button";
-                    boton.textContent = "Alquilar";
-                    boton.onclick = function() {
-                        iniciarProcesoAlquiler(c);
-                    };
-                    li.appendChild(boton);
-                }
-
-                if (usuario && usuario.rol === "ADMIN") {
-                    const botonEditar = document.createElement("button");
-                    botonEditar.type = "button";
-                    botonEditar.className = "secondary-button";
-                    botonEditar.textContent = "Editar";
-                    botonEditar.onclick = function() {
-                        prepararEdicion(c);
-                    };
-                    li.appendChild(botonEditar);
-
-                    const botonEliminar = document.createElement("button");
-                    botonEliminar.type = "button";
-                    botonEliminar.className = "delete-button";
-                    botonEliminar.textContent = "Eliminar";
-                    botonEliminar.onclick = function() {
-                        eliminarComponente(c.id, c.nombre);
-                    };
-                    li.appendChild(botonEliminar);
-                }
-
-                lista.appendChild(li);
-            });
+            aplicarFiltros();
         })
         .catch(error => console.error("Error al cargar:", error));
+}
+
+function aplicarFiltros() {
+    const lista = document.getElementById("lista");
+    const mensajeFiltros = document.getElementById("mensajeFiltros");
+    const usuario = obtenerUsuarioActivo();
+    const textoBusqueda = document.getElementById("busquedaComponente")?.value?.trim().toLowerCase() || "";
+    const tipoSeleccionado = document.getElementById("filtroTipo")?.value || "";
+    const estadoSeleccionado = document.getElementById("filtroEstado")?.value || "";
+
+    if (!lista) {
+        return;
+    }
+
+    lista.innerHTML = "";
+
+    if (componentesCache.length === 0) {
+        const li = document.createElement("li");
+        li.className = "item-card";
+        li.innerHTML = `
+            <div class="item-info">
+                <strong>No hay componentes registrados</strong>
+                <span>Anade un componente nuevo para empezar a trabajar con el catalogo.</span>
+            </div>
+        `;
+        lista.appendChild(li);
+        if (mensajeFiltros) {
+            mensajeFiltros.textContent = "";
+        }
+        return;
+    }
+
+    const componentesFiltrados = componentesCache.filter(c => {
+        const coincideNombre = c.nombre.toLowerCase().includes(textoBusqueda);
+        const coincideTipo = !tipoSeleccionado || c.tipo === tipoSeleccionado;
+        const coincideEstado = !estadoSeleccionado || c.estado === estadoSeleccionado;
+        return coincideNombre && coincideTipo && coincideEstado;
+    });
+
+    if (mensajeFiltros) {
+        mensajeFiltros.textContent = componentesFiltrados.length === componentesCache.length
+            ? `Mostrando ${componentesFiltrados.length} componentes del catalogo.`
+            : `Mostrando ${componentesFiltrados.length} de ${componentesCache.length} componentes.`;
+    }
+
+    if (componentesFiltrados.length === 0) {
+        const li = document.createElement("li");
+        li.className = "item-card";
+        li.innerHTML = `
+            <div class="item-info">
+                <strong>No hay resultados</strong>
+                <span>Prueba con otra busqueda o cambia los filtros aplicados.</span>
+            </div>
+        `;
+        lista.appendChild(li);
+        return;
+    }
+
+    componentesFiltrados.forEach(c => {
+        const li = document.createElement("li");
+        li.className = "item-card";
+
+        const imagen = document.createElement("img");
+        imagen.className = "item-image";
+        imagen.src = obtenerImagenPorTipo(c.tipo);
+        imagen.alt = c.tipo;
+        li.appendChild(imagen);
+
+        const info = document.createElement("div");
+        info.className = "item-info";
+        info.innerHTML = `
+            <strong>${c.nombre}</strong>
+            <span>${c.tipo}</span>
+            <span class="badge ${c.estado.toLowerCase()}">${c.estado}</span>
+        `;
+        li.appendChild(info);
+
+        if (usuario && usuario.rol === "USER" && c.estado === "Disponible") {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "rent-button";
+            boton.textContent = "Alquilar";
+            boton.onclick = function() {
+                iniciarProcesoAlquiler(c);
+            };
+            li.appendChild(boton);
+        }
+
+        if (usuario && usuario.rol === "ADMIN") {
+            const botonEditar = document.createElement("button");
+            botonEditar.type = "button";
+            botonEditar.className = "secondary-button";
+            botonEditar.textContent = "Editar";
+            botonEditar.onclick = function() {
+                prepararEdicion(c);
+            };
+            li.appendChild(botonEditar);
+
+            const botonEliminar = document.createElement("button");
+            botonEliminar.type = "button";
+            botonEliminar.className = "delete-button";
+            botonEliminar.textContent = "Eliminar";
+            botonEliminar.onclick = function() {
+                eliminarComponente(c.id, c.nombre);
+            };
+            li.appendChild(botonEliminar);
+        }
+
+        lista.appendChild(li);
+    });
+}
+
+function limpiarFiltros() {
+    const busqueda = document.getElementById("busquedaComponente");
+    const filtroTipo = document.getElementById("filtroTipo");
+    const filtroEstado = document.getElementById("filtroEstado");
+
+    if (busqueda) {
+        busqueda.value = "";
+    }
+    if (filtroTipo) {
+        filtroTipo.value = "";
+    }
+    if (filtroEstado) {
+        filtroEstado.value = "";
+    }
+
+    aplicarFiltros();
 }
 
 function obtenerImagenPorTipo(tipo) {
@@ -300,12 +378,12 @@ function guardar() {
     const urlDestino = componenteEnEdicionId ? `${URL}/${componenteEnEdicionId}` : URL;
 
     if (!usuario || usuario.rol !== "ADMIN") {
-        alert("Solo un administrador puede anadir componentes");
+        mostrarMensaje("mensajeFormularioAdmin", "Solo un administrador puede anadir componentes.");
         return;
     }
 
     if (!nombre || !tipo || !estado) {
-        alert("Rellena todos los campos");
+        mostrarMensaje("mensajeFormularioAdmin", "Rellena todos los campos del formulario.");
         return;
     }
 
@@ -341,8 +419,6 @@ function guardar() {
     .catch(error => {
         if (mensaje) {
             mensaje.textContent = error.message;
-        } else {
-            alert("No se pudo guardar");
         }
     });
 }
@@ -405,7 +481,7 @@ function iniciarProcesoAlquiler(componente) {
     const usuario = obtenerUsuarioActivo();
 
     if (!usuario || usuario.rol !== "USER") {
-        alert("Solo un usuario puede alquilar componentes");
+        mostrarMensaje("mensajeCatalogoAccion", "Debes iniciar sesion como usuario para alquilar.");
         return;
     }
 
@@ -650,7 +726,6 @@ function confirmarAlquiler() {
     })
     .then(data => {
         limpiarProcesoAlquiler();
-        alert(data.mensaje);
         window.location.href = "index.html";
     })
     .catch(error => {
@@ -698,7 +773,7 @@ function devolverAlquiler(alquilerId) {
     const usuario = obtenerUsuarioActivo();
 
     if (!usuario || usuario.rol !== "USER") {
-        alert("Solo un usuario puede devolver alquileres");
+        mostrarMensaje("mensajeAlquilerAccion", "Solo un usuario puede devolver alquileres.");
         return;
     }
 
@@ -720,11 +795,11 @@ function devolverAlquiler(alquilerId) {
         return response.json();
     })
     .then(data => {
-        alert(data.mensaje);
+        mostrarMensaje("mensajeAlquilerAccion", data.mensaje);
         cargar();
     })
     .catch(error => {
-        alert(error.message.includes("Failed to fetch")
+        mostrarMensaje("mensajeAlquilerAccion", error.message.includes("Failed to fetch")
             ? "No se pudo conectar con el endpoint de devolucion. Reinicia el backend y vuelve a intentarlo."
             : error.message);
     });
@@ -734,7 +809,7 @@ function eliminarComponente(componenteId, nombreComponente) {
     const usuario = obtenerUsuarioActivo();
 
     if (!usuario || usuario.rol !== "ADMIN") {
-        alert("Solo un administrador puede eliminar componentes");
+        mostrarMensaje("mensajeCatalogoAccion", "Solo un administrador puede eliminar componentes.");
         return;
     }
 
@@ -758,11 +833,11 @@ function eliminarComponente(componenteId, nombreComponente) {
         return response.text();
     })
     .then(mensaje => {
-        alert(mensaje);
+        mostrarMensaje("mensajeCatalogoAccion", mensaje);
         cargar();
     })
     .catch(error => {
-        alert(error.message.includes("Failed to fetch")
+        mostrarMensaje("mensajeCatalogoAccion", error.message.includes("Failed to fetch")
             ? "No se pudo conectar con el backend para eliminar el componente."
             : error.message);
     });

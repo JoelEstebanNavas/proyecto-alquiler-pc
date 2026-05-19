@@ -90,6 +90,43 @@
                 </div>
                 <p id="mensajeRol" class="status-text"></p>
             </div>
+            <div class="filters-bar">
+                <div class="filter-group search-group">
+                    <label class="field-label" for="busquedaComponente">Buscar por nombre</label>
+                    <input id="busquedaComponente" type="text" placeholder="Escribe para buscar" oninput="aplicarFiltros()">
+                </div>
+                <div class="filter-group">
+                    <label class="field-label" for="filtroTipo">Filtrar por tipo</label>
+                    <select id="filtroTipo" onchange="aplicarFiltros()">
+                        <option value="">Todos los tipos</option>
+                        <option value="Ordenador">Ordenador</option>
+                        <option value="Memoria RAM">Memoria RAM</option>
+                        <option value="SSD">SSD</option>
+                        <option value="HDD">HDD</option>
+                        <option value="Grafica">Grafica</option>
+                        <option value="Procesador">Procesador</option>
+                        <option value="Placa base">Placa base</option>
+                        <option value="Refrigeracion">Refrigeracion</option>
+                        <option value="Caja">Caja</option>
+                        <option value="Fuente de alimentacion">Fuente de alimentacion</option>
+                        <option value="Monitor">Monitor</option>
+                        <option value="Periferico">Periferico</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="field-label" for="filtroEstado">Filtrar por estado</label>
+                    <select id="filtroEstado" onchange="aplicarFiltros()">
+                        <option value="">Todos los estados</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Alquilado">Alquilado</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button type="button" class="secondary-button" onclick="limpiarFiltros()">Limpiar filtros</button>
+                </div>
+            </div>
+            <p id="mensajeFiltros" class="status-text"></p>
+            <p id="mensajeCatalogoAccion" class="status-text"></p>
             <ul id="lista"></ul>
         </div>
 
@@ -104,6 +141,7 @@
                 </div>
                 <p id="mensajeAlquileres" class="status-text"></p>
             </div>
+            <p id="mensajeAlquilerAccion" class="status-text"></p>
             <ul id="listaAlquileres"></ul>
         </div>
     </section>

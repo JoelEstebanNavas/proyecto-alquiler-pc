@@ -268,7 +268,10 @@ function limpiarFiltros() {
 }
 
 function obtenerImagenPorTipo(tipo) {
-    const tipoNormalizado = (tipo || "").toLowerCase();
+    const tipoNormalizado = (tipo || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
     if (tipoNormalizado.includes("ram")) return "img/ram.svg";
     if (tipoNormalizado.includes("ssd")) return "img/ssd.svg";
@@ -959,6 +962,7 @@ function login() {
         }
     });
 }
+
 
 
 

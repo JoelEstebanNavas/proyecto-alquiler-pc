@@ -1,6 +1,6 @@
-const URL = "http://localhost:8080/api/componentes";
-const AUTH_URL = "http://localhost:8080/api/auth";
-const ALQUILER_URL = "http://localhost:8080/api/alquileres";
+const URL = "https://spirited-spontaneity-production.up.railway.app/api/componentes";
+const AUTH_URL = "https://spirited-spontaneity-production.up.railway.app/api/auth";
+const ALQUILER_URL = "https://spirited-spontaneity-production.up.railway.app/api/alquileres";
 let componenteEnEdicionId = null;
 let componentesCache = [];
 
@@ -906,6 +906,7 @@ function login() {
         }
     });
 }
+
 
 
 

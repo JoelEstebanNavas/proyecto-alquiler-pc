@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha del componente | AlquiParts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css.css">
+</head>
+<body>
+<div class="page-shell">
+    <header class="site-header">
+        <a class="brand-mark" href="index.html">
+            <span class="brand-icon">AP</span>
+            <span>
+                <strong>AlquiParts</strong>
+                <small>Ficha técnica del componente</small>
+            </span>
+        </a>
+        <div class="nav-actions">
+            <a class="ghost-cta" href="index.html">Volver al catálogo</a>
+            <a class="link-button" href="login.html">Acceder</a>
+        </div>
+    </header>
+
+    <section class="detail-shell" id="detalleComponente">
+        <div class="detail-media-card">
+            <img id="detalleImagen" class="detail-image" src="img/monitor.svg" alt="Componente">
+        </div>
+
+        <div class="detail-content-card">
+            <p class="eyebrow">Ficha completa</p>
+            <h1 id="detalleNombre">Cargando componente...</h1>
+            <div class="detail-meta">
+                <span id="detalleTipo" class="detail-pill">Tipo</span>
+                <span id="detalleEstado" class="badge disponible">Disponible</span>
+            </div>
+
+            <div class="detail-block">
+                <h2>Especificaciones</h2>
+                <p id="detalleDescripcion" class="detail-description">Estamos cargando la información del componente.</p>
+            </div>
+
+            <div class="detail-actions">
+                <button type="button" id="detalleAlquilarBtn" onclick="alquilarDesdeDetalle()">Alquilar componente</button>
+                <a class="ghost-cta" href="index.html#catalogo">Seguir explorando</a>
+            </div>
+
+            <p id="mensajeDetalleComponente" class="status-text"></p>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

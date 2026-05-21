@@ -22,7 +22,7 @@
         <nav class="site-nav">
             <a href="#catalogo">Catálogo</a>
             <a href="#servicios">Servicios</a>
-            <a href="#bloqueAlquileres">Mis alquileres</a>
+            <a href="#bloqueAlquileres" id="misAlquileresLink">Mis alquileres</a>
         </nav>
         <div class="nav-actions">
             <p id="usuarioInfo" class="session-chip">Invitado</p>
@@ -132,6 +132,8 @@
                     <option value="Disponible">Disponible</option>
                     <option value="Alquilado">Alquilado</option>
                 </select>
+                <label class="field-label" for="descripcion">Especificaciones</label>
+                <textarea id="descripcion" rows="5" placeholder="Describe el componente, su capacidad, compatibilidad, estado estético o cualquier detalle importante."></textarea>
                 <div class="user-actions form-actions">
                     <button type="button" id="botonGuardarComponente" onclick="guardar()">Guardar componente</button>
                     <button type="button" class="secondary-button" id="botonCancelarEdicion" onclick="cancelarEdicion()" style="display: none;">Cancelar edición</button>

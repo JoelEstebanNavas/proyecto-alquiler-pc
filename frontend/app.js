@@ -7,6 +7,7 @@ let componentesCache = [];
 window.onload = function() {
     if (document.getElementById("lista")) {
         configurarVistaPorRol();
+        configurarAccesosProtegidos();
         cargar();
     }
     if (document.getElementById("resumenComponente")) {
@@ -14,6 +15,12 @@ window.onload = function() {
     }
     if (document.getElementById("resumenPago")) {
         prepararFormularioPago();
+    }
+    if (document.getElementById("detalleComponente")) {
+        cargarDetalleComponente();
+    }
+    if (document.getElementById("mensajeLogin")) {
+        mostrarMensajeLoginPendiente();
     }
 };
 
@@ -41,6 +48,36 @@ function mostrarMensaje(id, texto) {
     if (nodo) {
         nodo.textContent = texto;
     }
+}
+
+function configurarAccesosProtegidos() {
+    const enlaceMisAlquileres = document.getElementById("misAlquileresLink");
+    const usuario = obtenerUsuarioActivo();
+
+    if (!enlaceMisAlquileres) {
+        return;
+    }
+
+    enlaceMisAlquileres.onclick = function(evento) {
+        if (usuario) {
+            return;
+        }
+
+        evento.preventDefault();
+        localStorage.setItem("loginNotice", "Inicia sesión para consultar tus alquileres y seguir con tu cuenta.");
+        window.location.href = "login.html";
+    };
+}
+
+function mostrarMensajeLoginPendiente() {
+    const aviso = localStorage.getItem("loginNotice");
+
+    if (!aviso) {
+        return;
+    }
+
+    mostrarMensaje("mensajeLogin", aviso);
+    localStorage.removeItem("loginNotice");
 }
 
 function configurarVistaPorRol() {
@@ -210,9 +247,19 @@ function aplicarFiltros() {
         info.innerHTML = `
             <strong>${c.nombre}</strong>
             <span>${c.tipo}</span>
+            <span>${obtenerResumenDescripcion(c.descripcion)}</span>
             <span class="badge ${c.estado.toLowerCase()}">${c.estado}</span>
         `;
         li.appendChild(info);
+
+        const botonDetalle = document.createElement("button");
+        botonDetalle.type = "button";
+        botonDetalle.className = "secondary-button";
+        botonDetalle.textContent = "Ver ficha";
+        botonDetalle.onclick = function() {
+            verDetalleComponente(c.id);
+        };
+        li.appendChild(botonDetalle);
 
         if (usuario && usuario.rol === "USER" && c.estado === "Disponible") {
             const boton = document.createElement("button");
@@ -267,6 +314,16 @@ function limpiarFiltros() {
     aplicarFiltros();
 }
 
+function obtenerResumenDescripcion(descripcion) {
+    if (!descripcion || !descripcion.trim()) {
+        return "Sin especificaciones detalladas todavía.";
+    }
+
+    return descripcion.length > 96
+        ? `${descripcion.slice(0, 96).trim()}...`
+        : descripcion;
+}
+
 function obtenerImagenPorTipo(tipo) {
     const tipoNormalizado = (tipo || "")
         .toLowerCase()
@@ -300,6 +357,98 @@ function actualizarResumen(componentes) {
     total.textContent = componentes.length;
     disponibles.textContent = componentes.filter(c => c.estado === "Disponible").length;
     alquilados.textContent = componentes.filter(c => c.estado === "Alquilado").length;
+}
+
+function verDetalleComponente(componenteId) {
+    window.location.href = `detalle.html?id=${componenteId}`;
+}
+
+function cargarDetalleComponente() {
+    const params = new URLSearchParams(window.location.search);
+    const componenteId = params.get("id");
+    const mensaje = document.getElementById("mensajeDetalleComponente");
+
+    if (!componenteId) {
+        if (mensaje) {
+            mensaje.textContent = "No se ha encontrado el componente que intentas consultar.";
+        }
+        return;
+    }
+
+    fetch(`${URL}/${componenteId}`)
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text || "No se pudo cargar la ficha del componente");
+                });
+            }
+            return response.json();
+        })
+        .then(componente => {
+            localStorage.setItem("detalleComponenteActual", JSON.stringify(componente));
+            renderizarDetalleComponente(componente);
+        })
+        .catch(error => {
+            if (mensaje) {
+                mensaje.textContent = error.message;
+            }
+        });
+}
+
+function renderizarDetalleComponente(componente) {
+    const nombre = document.getElementById("detalleNombre");
+    const tipo = document.getElementById("detalleTipo");
+    const estado = document.getElementById("detalleEstado");
+    const descripcion = document.getElementById("detalleDescripcion");
+    const imagen = document.getElementById("detalleImagen");
+    const botonAlquilar = document.getElementById("detalleAlquilarBtn");
+    const usuario = obtenerUsuarioActivo();
+
+    if (nombre) nombre.textContent = componente.nombre;
+    if (tipo) tipo.textContent = componente.tipo;
+    if (estado) {
+        estado.textContent = componente.estado;
+        estado.className = `badge ${componente.estado.toLowerCase()}`;
+    }
+    if (descripcion) {
+        descripcion.textContent = componente.descripcion?.trim()
+            || "Este componente todavía no tiene especificaciones ampliadas. Puedes añadirlas desde el panel de administración.";
+    }
+    if (imagen) {
+        imagen.src = obtenerImagenPorTipo(componente.tipo);
+        imagen.alt = componente.nombre;
+    }
+    if (botonAlquilar) {
+        const puedeAlquilar = usuario && usuario.rol === "USER" && componente.estado === "Disponible";
+        botonAlquilar.disabled = !puedeAlquilar;
+        if (puedeAlquilar) {
+            botonAlquilar.textContent = "Alquilar componente";
+        } else if (!usuario) {
+            botonAlquilar.textContent = "Inicia sesión para alquilar";
+        } else if (componente.estado !== "Disponible") {
+            botonAlquilar.textContent = "No disponible ahora mismo";
+        } else {
+            botonAlquilar.textContent = "Disponible para cuentas de usuario";
+        }
+    }
+}
+
+function alquilarDesdeDetalle() {
+    const usuario = obtenerUsuarioActivo();
+    const componente = localStorage.getItem("detalleComponenteActual");
+
+    if (!usuario) {
+        localStorage.setItem("loginNotice", "Inicia sesión para alquilar este componente.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (!componente) {
+        mostrarMensaje("mensajeDetalleComponente", "No se ha podido recuperar el componente seleccionado.");
+        return;
+    }
+
+    iniciarProcesoAlquiler(JSON.parse(componente));
 }
 
 function cargarAlquileresUsuario() {
@@ -381,6 +530,7 @@ function guardar() {
     const nombre = document.getElementById("nombre").value.trim();
     const tipo = document.getElementById("tipo").value;
     const estado = document.getElementById("estado").value;
+    const descripcion = document.getElementById("descripcion").value.trim();
     const mensaje = document.getElementById("mensajeFormularioAdmin");
     const método = componenteEnEdicionId ? "PUT" : "POST";
     const urlDestino = componenteEnEdicionId ? `${URL}/${componenteEnEdicionId}` : URL;
@@ -404,7 +554,8 @@ function guardar() {
         body: JSON.stringify({
             nombre: nombre,
             tipo: tipo,
-            estado: estado
+            estado: estado,
+            descripcion: descripcion
         })
     })
     .then(response => {
@@ -435,6 +586,7 @@ function limpiarFormulario() {
     document.getElementById("nombre").value = "";
     document.getElementById("tipo").value = "";
     document.getElementById("estado").value = "";
+    document.getElementById("descripcion").value = "";
     componenteEnEdicionId = null;
 
     const titulo = document.getElementById("tituloFormularioAdmin");
@@ -458,6 +610,7 @@ function prepararEdicion(componente) {
     document.getElementById("nombre").value = componente.nombre;
     document.getElementById("tipo").value = componente.tipo;
     document.getElementById("estado").value = componente.estado;
+    document.getElementById("descripcion").value = componente.descripcion || "";
 
     const titulo = document.getElementById("tituloFormularioAdmin");
     const mensaje = document.getElementById("mensajeFormularioAdmin");
@@ -498,7 +651,8 @@ function iniciarProcesoAlquiler(componente) {
     const usuario = obtenerUsuarioActivo();
 
     if (!usuario || usuario.rol !== "USER") {
-        mostrarMensaje("mensajeCatalogoAccion", "Debes iniciar sesión como usuario para alquilar.");
+        localStorage.setItem("loginNotice", "Inicia sesión con una cuenta de usuario para alquilar componentes.");
+        window.location.href = "login.html";
         return;
     }
 
@@ -870,7 +1024,6 @@ function register() {
     const nombre = document.getElementById("registerNombre")?.value?.trim();
     const email = document.getElementById("registerEmail")?.value?.trim();
     const password = document.getElementById("registerPassword")?.value?.trim();
-    const rol = document.getElementById("registerRol")?.value || "USER";
     const mensaje = document.getElementById("mensajeRegistro");
 
     if (!nombre || !email || !password) {

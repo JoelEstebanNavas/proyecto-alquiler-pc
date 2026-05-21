@@ -26,6 +26,17 @@ public class ComponenteController {
         return repo.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        Componente componente = repo.findById(id).orElse(null);
+
+        if (componente == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Componente no encontrado");
+        }
+
+        return ResponseEntity.ok(componente);
+    }
+
     @PostMapping
     public ResponseEntity<?> guardar(@RequestBody Componente c,
             @RequestHeader(value = "X-User-Role", required = false) String rol) {
@@ -52,6 +63,7 @@ public class ComponenteController {
         componente.setNombre(datos.getNombre());
         componente.setTipo(datos.getTipo());
         componente.setEstado(datos.getEstado());
+        componente.setDescripcion(datos.getDescripcion());
 
         return ResponseEntity.ok(repo.save(componente));
     }

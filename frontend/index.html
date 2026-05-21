@@ -3,140 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alquiler de PCs</title>
+    <title>AlquiParts | Alquiler profesional de componentes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Css.css">
 </head>
 <body>
-
 <div class="page-shell">
-    <header class="hero">
-        <div class="hero-copy">
-            <p class="eyebrow">Sistema de alquiler</p>
-            <h1>Gestion de Componentes</h1>
-            <p class="hero-text">Consulta el catalogo, administra nuevos equipos y realiza alquileres segun el rol del usuario que haya iniciado sesion.</p>
-        </div>
-        <div class="user-panel">
-            <p class="panel-label">Sesion actual</p>
-            <p id="usuarioInfo" class="panel-value">Invitado</p>
-            <div class="user-actions">
-                <a class="link-button" id="loginLink" href="login.html">Ir al login</a>
-                <button type="button" class="secondary-button" onclick="cerrarSesion()">Cerrar sesion</button>
-            </div>
+    <header class="site-header">
+        <a class="brand-mark" href="index.html">
+            <span class="brand-icon">AP</span>
+            <span>
+                <strong>AlquiParts</strong>
+                <small>Hardware en alquiler</small>
+            </span>
+        </a>
+        <nav class="site-nav">
+            <a href="#catalogo">Catalogo</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#bloqueAlquileres">Mis alquileres</a>
+        </nav>
+        <div class="nav-actions">
+            <p id="usuarioInfo" class="session-chip">Invitado</p>
+            <a class="link-button" id="loginLink" href="login.html">Acceder</a>
+            <button type="button" id="logoutButton" class="secondary-button compact-button" onclick="cerrarSesion()">Cerrar sesion</button>
         </div>
     </header>
 
-    <section class="summary-grid">
-        <article class="summary-card">
-            <span class="summary-label">Total de componentes</span>
-            <strong id="totalComponentes" class="summary-value">0</strong>
+    <section class="hero hero-home">
+        <div class="hero-copy hero-copy-wide">
+            <p class="eyebrow">Plataforma de alquiler tecnologico</p>
+            <h1>AlquiParts pone a tu alcance componentes y equipos listos para usar.</h1>
+            <p class="hero-text">Reserva monitores, memorias, almacenamiento, perifericos y hardware profesional desde una experiencia clara, moderna y preparada para produccion.</p>
+            <div class="hero-cta-row">
+                <a class="primary-cta" href="#catalogo">Explorar catalogo</a>
+                <a class="ghost-cta" href="login.html">Iniciar sesion</a>
+            </div>
+            <div class="trust-strip">
+                <span>Disponibilidad en tiempo real</span>
+                <span>Gestion por roles</span>
+                <span>Proceso de alquiler guiado</span>
+            </div>
+        </div>
+        <div class="hero-showcase">
+            <div class="showcase-card spotlight-card">
+                <p class="spotlight-kicker">Catalogo activo</p>
+                <h3>Infraestructura flexible para estudios, eventos y soporte tecnico.</h3>
+                <p>Consulta el estado de cada componente y completa el alquiler en pocos pasos.</p>
+            </div>
+            <div class="showcase-stats">
+                <article class="mini-stat">
+                    <span>Total</span>
+                    <strong id="totalComponentes">0</strong>
+                </article>
+                <article class="mini-stat">
+                    <span>Disponibles</span>
+                    <strong id="totalDisponibles">0</strong>
+                </article>
+                <article class="mini-stat">
+                    <span>Alquilados</span>
+                    <strong id="totalAlquilados">0</strong>
+                </article>
+                <article class="mini-stat accent-stat">
+                    <span>Rol activo</span>
+                    <strong id="rolActivo">Sin sesion</strong>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-grid" id="servicios">
+        <article class="feature-card">
+            <p class="feature-index">01</p>
+            <h3>Inventario claro</h3>
+            <p>Visualiza de un vistazo que piezas estan libres, alquiladas o listas para mantenimiento.</p>
         </article>
-        <article class="summary-card">
-            <span class="summary-label">Disponibles</span>
-            <strong id="totalDisponibles" class="summary-value">0</strong>
+        <article class="feature-card">
+            <p class="feature-index">02</p>
+            <h3>Flujo sencillo</h3>
+            <p>Busqueda, filtros, reserva y pago en una misma experiencia, sin pasos confusos.</p>
         </article>
-        <article class="summary-card">
-            <span class="summary-label">Alquilados</span>
-            <strong id="totalAlquilados" class="summary-value">0</strong>
-        </article>
-        <article class="summary-card">
-            <span class="summary-label">Rol activo</span>
-            <strong id="rolActivo" class="summary-value">Sin sesion</strong>
+        <article class="feature-card">
+            <p class="feature-index">03</p>
+            <h3>Gestion profesional</h3>
+            <p>Los administradores pueden actualizar el catalogo y los usuarios controlar sus alquileres.</p>
         </article>
     </section>
 
-    <div class="container">
-
-        <div class="form" id="bloqueAdmin">
-            <div class="section-heading">
-                <p class="eyebrow">Administracion</p>
-                <h2 id="tituloFormularioAdmin">Anadir componente</h2>
+    <section class="workspace-shell" id="catalogo">
+        <div class="workspace-intro">
+            <div>
+                <p class="eyebrow">Entorno de trabajo</p>
+                <h2>Centro operativo de AlquiParts</h2>
+                <p class="hero-text">Desde aqui puedes consultar el catalogo, filtrar componentes, gestionar el inventario o revisar tus alquileres segun el rol con el que hayas iniciado sesion.</p>
             </div>
-            <p id="mensajeFormularioAdmin" class="status-text"></p>
-            <label class="field-label" for="nombre">Nombre</label>
-            <input id="nombre" placeholder="Ejemplo: Portatil Dell">
-            <label class="field-label" for="tipo">Tipo</label>
-            <select id="tipo">
-                <option value="">Elegir tipo</option>
-                <option value="Ordenador">Ordenador</option>
-                <option value="Memoria RAM">Memoria RAM</option>
-                <option value="SSD">SSD</option>
-                <option value="HDD">HDD</option>
-                <option value="Grafica">Grafica</option>
-                <option value="Procesador">Procesador</option>
-                <option value="Placa base">Placa base</option>
-                <option value="Refrigeracion">Refrigeracion</option>
-                <option value="Caja">Caja</option>
-                <option value="Fuente de alimentacion">Fuente de alimentacion</option>
-                <option value="Monitor">Monitor</option>
-                <option value="Periferico">Periferico</option>
-            </select>
-            <label class="field-label" for="estado">Estado</label>
-            <select id="estado">
-                <option value="">Elegir estado</option>
-                <option value="Disponible">Disponible</option>
-                <option value="Alquilado">Alquilado</option>
-            </select>
-            <div class="user-actions form-actions">
-                <button type="button" id="botonGuardarComponente" onclick="guardar()">Guardar componente</button>
-                <button type="button" class="secondary-button" id="botonCancelarEdicion" onclick="cancelarEdicion()" style="display: none;">Cancelar edicion</button>
-            </div>
+            <p id="mensajeRol" class="status-text status-inline"></p>
         </div>
 
-        <div class="listado">
-            <div class="list-header">
+        <div class="container">
+            <div class="form admin-panel" id="bloqueAdmin">
                 <div class="section-heading">
-                    <p class="eyebrow">Catalogo</p>
-                    <h2>Componentes</h2>
+                    <p class="eyebrow">Panel administrador</p>
+                    <h2 id="tituloFormularioAdmin">Anadir componente</h2>
                 </div>
-                <p id="mensajeRol" class="status-text"></p>
-            </div>
-            <div class="filters-bar">
-                <div class="filter-group search-group">
-                    <label class="field-label" for="busquedaComponente">Buscar por nombre</label>
-                    <input id="busquedaComponente" type="text" placeholder="Escribe para buscar" oninput="aplicarFiltros()">
-                </div>
-                <div class="filter-group">
-                    <label class="field-label" for="filtroTipo">Filtrar por tipo</label>
-                    <select id="filtroTipo" onchange="aplicarFiltros()">
-                        <option value="">Todos los tipos</option>
-                        <option value="Ordenador">Ordenador</option>
-                        <option value="Memoria RAM">Memoria RAM</option>
-                        <option value="SSD">SSD</option>
-                        <option value="HDD">HDD</option>
-                        <option value="Grafica">Grafica</option>
-                        <option value="Procesador">Procesador</option>
-                        <option value="Placa base">Placa base</option>
-                        <option value="Refrigeracion">Refrigeracion</option>
-                        <option value="Caja">Caja</option>
-                        <option value="Fuente de alimentacion">Fuente de alimentacion</option>
-                        <option value="Monitor">Monitor</option>
-                        <option value="Periferico">Periferico</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="field-label" for="filtroEstado">Filtrar por estado</label>
-                    <select id="filtroEstado" onchange="aplicarFiltros()">
-                        <option value="">Todos los estados</option>
-                        <option value="Disponible">Disponible</option>
-                        <option value="Alquilado">Alquilado</option>
-                    </select>
-                </div>
-                <div class="filter-actions">
-                    <button type="button" class="secondary-button" onclick="limpiarFiltros()">Limpiar filtros</button>
+                <p id="mensajeFormularioAdmin" class="status-text"></p>
+                <label class="field-label" for="nombre">Nombre</label>
+                <input id="nombre" placeholder="Ejemplo: Monitor Dell 27 pulgadas">
+                <label class="field-label" for="tipo">Tipo</label>
+                <select id="tipo">
+                    <option value="">Elegir tipo</option>
+                    <option value="Ordenador">Ordenador</option>
+                    <option value="Memoria RAM">Memoria RAM</option>
+                    <option value="SSD">SSD</option>
+                    <option value="HDD">HDD</option>
+                    <option value="Grafica">Grafica</option>
+                    <option value="Procesador">Procesador</option>
+                    <option value="Placa base">Placa base</option>
+                    <option value="Refrigeracion">Refrigeracion</option>
+                    <option value="Caja">Caja</option>
+                    <option value="Fuente de alimentacion">Fuente de alimentacion</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Periferico">Periferico</option>
+                </select>
+                <label class="field-label" for="estado">Estado</label>
+                <select id="estado">
+                    <option value="">Elegir estado</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Alquilado">Alquilado</option>
+                </select>
+                <div class="user-actions form-actions">
+                    <button type="button" id="botonGuardarComponente" onclick="guardar()">Guardar componente</button>
+                    <button type="button" class="secondary-button" id="botonCancelarEdicion" onclick="cancelarEdicion()" style="display: none;">Cancelar edicion</button>
                 </div>
             </div>
-            <p id="mensajeFiltros" class="status-text"></p>
-            <p id="mensajeCatalogoAccion" class="status-text"></p>
-            <ul id="lista"></ul>
-        </div>
 
-    </div>
+            <div class="listado catalog-panel">
+                <div class="list-header">
+                    <div class="section-heading">
+                        <p class="eyebrow">Catalogo vivo</p>
+                        <h2>Componentes disponibles</h2>
+                    </div>
+                </div>
+                <div class="filters-bar">
+                    <div class="filter-group search-group">
+                        <label class="field-label" for="busquedaComponente">Buscar por nombre</label>
+                        <input id="busquedaComponente" type="text" placeholder="Busca un componente" oninput="aplicarFiltros()">
+                    </div>
+                    <div class="filter-group">
+                        <label class="field-label" for="filtroTipo">Tipo</label>
+                        <select id="filtroTipo" onchange="aplicarFiltros()">
+                            <option value="">Todos los tipos</option>
+                            <option value="Ordenador">Ordenador</option>
+                            <option value="Memoria RAM">Memoria RAM</option>
+                            <option value="SSD">SSD</option>
+                            <option value="HDD">HDD</option>
+                            <option value="Grafica">Grafica</option>
+                            <option value="Procesador">Procesador</option>
+                            <option value="Placa base">Placa base</option>
+                            <option value="Refrigeracion">Refrigeracion</option>
+                            <option value="Caja">Caja</option>
+                            <option value="Fuente de alimentacion">Fuente de alimentacion</option>
+                            <option value="Monitor">Monitor</option>
+                            <option value="Periferico">Periferico</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="field-label" for="filtroEstado">Estado</label>
+                        <select id="filtroEstado" onchange="aplicarFiltros()">
+                            <option value="">Todos los estados</option>
+                            <option value="Disponible">Disponible</option>
+                            <option value="Alquilado">Alquilado</option>
+                        </select>
+                    </div>
+                    <div class="filter-actions">
+                        <button type="button" class="secondary-button" onclick="limpiarFiltros()">Limpiar filtros</button>
+                    </div>
+                </div>
+                <p id="mensajeFiltros" class="status-text"></p>
+                <p id="mensajeCatalogoAccion" class="status-text"></p>
+                <ul id="lista"></ul>
+            </div>
+        </div>
+    </section>
 
     <section class="rentals-section" id="bloqueAlquileres">
-        <div class="listado">
+        <div class="listado rentals-panel">
             <div class="list-header">
                 <div class="section-heading">
-                    <p class="eyebrow">Seguimiento</p>
+                    <p class="eyebrow">Area personal</p>
                     <h2>Mis alquileres</h2>
                 </div>
                 <p id="mensajeAlquileres" class="status-text"></p>
@@ -146,8 +201,7 @@
         </div>
     </section>
 </div>
-
 <script src="app.js"></script>
-
 </body>
 </html>
+

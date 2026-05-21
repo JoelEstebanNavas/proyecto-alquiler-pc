@@ -3,41 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Acceso | AlquiParts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Css.css">
 </head>
 <body>
-
 <div class="page-shell login-shell">
     <div class="login-layout">
-        <aside class="login-side">
-            <p class="eyebrow">Proyecto final</p>
-            <h1>Acceso al sistema</h1>
-            <p class="login-text">Inicia sesion para administrar el catalogo o alquilar componentes disponibles desde una unica interfaz.</p>
+        <aside class="login-side brand-side">
+            <a class="brand-mark brand-mark-light" href="index.html">
+                <span class="brand-icon">AP</span>
+                <span>
+                    <strong>AlquiParts</strong>
+                    <small>Alquiler profesional de hardware</small>
+                </span>
+            </a>
+            <p class="eyebrow">Acceso seguro</p>
+            <h1>Entra a tu espacio de gestion y alquiler.</h1>
+            <p class="login-text">Accede para administrar el catalogo, revisar alquileres activos y continuar con reservas desde una experiencia pensada para clientes y personal interno.</p>
             <div class="demo-box">
-                <p class="panel-label">Usuarios de prueba</p>
-                <p class="demo-user"><strong>Admin:</strong> admin@alquilerpc.com / admin123</p>
-                <p class="demo-user"><strong>User:</strong> usuario@alquilerpc.com / user123</p>
+                <p class="panel-label">Credenciales de prueba</p>
+                <p class="demo-user"><strong>Administrador:</strong> admin@alquilerpc.com / admin123</p>
+                <p class="demo-user"><strong>Usuario:</strong> usuario@alquilerpc.com / user123</p>
+            </div>
+            <div class="login-side-note">
+                <span>Catalogo actualizado</span>
+                <span>Flujo de alquiler guiado</span>
+                <span>Interfaz preparada para publicar</span>
             </div>
         </aside>
 
-        <div class="login-card">
+        <div class="login-card elevated-card">
             <p class="eyebrow">Inicio de sesion</p>
-            <h2>Bienvenido</h2>
-            <p class="login-text">Introduce tu email y tu contrasena para continuar.</p>
+            <h2>Bienvenido a AlquiParts</h2>
+            <p class="login-text">Introduce tu correo y tu contraseña para acceder a la plataforma.</p>
 
-            <label class="field-label" for="email">Email</label>
-            <input type="email" id="email" placeholder="usuario@alquilerpc.com">
-            <label class="field-label" for="password">Contrasena</label>
-            <input type="password" id="password" placeholder="Introduce tu contrasena">
+            <label class="field-label" for="email">Correo electronico</label>
+            <input type="email" id="email" placeholder="usuario">
+            <label class="field-label" for="password">Contraseña</label>
+            <input type="password" id="password" placeholder="Introduce tu contraseña">
 
-            <button onclick="login()">Entrar</button>
+            <button onclick="login()">Entrar al panel</button>
             <p id="mensajeLogin" class="status-text"></p>
-            <p><a class="link-inline" href="index.html">Volver a componentes</a></p>
+            <div class="login-links-row">
+                <a class="link-inline" href="index.html">Volver al inicio</a>
+                <a class="link-inline muted-inline" href="index.html#catalogo">Ver catalogo publico</a>
+            </div>
         </div>
     </div>
 </div>
-
 <script src="app.js"></script>
 </body>
 </html>

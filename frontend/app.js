@@ -53,6 +53,7 @@ function configurarVistaPorRol() {
     const usuarioInfo = document.getElementById("usuarioInfo");
     const rolActivo = document.getElementById("rolActivo");
     const loginLink = document.getElementById("loginLink");
+    const logoutButton = document.getElementById("logoutButton");
 
     if (usuarioInfo) {
         usuarioInfo.textContent = usuario
@@ -66,6 +67,10 @@ function configurarVistaPorRol() {
 
     if (loginLink) {
         loginLink.textContent = usuario ? "Cambiar sesion" : "Ir al login";
+    }
+
+    if (logoutButton) {
+        logoutButton.style.display = usuario ? "inline-flex" : "none";
     }
 
     if (!usuario) {
@@ -82,7 +87,7 @@ function configurarVistaPorRol() {
             bloqueAlquileres.style.display = "none";
         }
         if (mensajeRol) {
-            mensajeRol.textContent = "Inicia sesion para gestionar o alquilar componentes.";
+            mensajeRol.textContent = "Explora el catalogo publicamente o inicia sesion para alquilar y gestionar componentes.";
         }
         return;
     }
@@ -855,7 +860,7 @@ function eliminarComponente(componenteId, nombreComponente) {
 function cerrarSesion() {
     localStorage.removeItem("usuarioActivo");
     limpiarProcesoAlquiler();
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 function login() {
@@ -901,3 +906,6 @@ function login() {
         }
     });
 }
+
+
+

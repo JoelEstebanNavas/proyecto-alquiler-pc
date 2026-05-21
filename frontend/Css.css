@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bg-main: #f4efe8;
     --bg-alt: #f8f4ee;
     --surface: rgba(255, 251, 247, 0.92);
@@ -751,5 +751,35 @@ select:focus {
 
     .site-nav {
         display: none;
+    }
+}
+
+.login-card-stack {
+    display: grid;
+    gap: 20px;
+    align-self: center;
+}
+
+.auth-panel {
+    width: min(430px, 100%);
+}
+
+.auth-panel-secondary {
+    background: linear-gradient(180deg, rgba(255, 251, 247, 0.98) 0%, rgba(250, 244, 237, 0.94) 100%);
+}
+
+.auth-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.auth-panel-secondary button {
+    margin-top: 16px;
+}
+
+@media (max-width: 620px) {
+    .auth-grid {
+        grid-template-columns: 1fr;
     }
 }

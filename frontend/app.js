@@ -1,4 +1,4 @@
-const URL = "https://spirited-spontaneity-production.up.railway.app/api/componentes";
+﻿const URL = "https://spirited-spontaneity-production.up.railway.app/api/componentes";
 const AUTH_URL = "https://spirited-spontaneity-production.up.railway.app/api/auth";
 const ALQUILER_URL = "https://spirited-spontaneity-production.up.railway.app/api/alquileres";
 let componenteEnEdicionId = null;
@@ -863,6 +863,61 @@ function cerrarSesion() {
     window.location.href = "index.html";
 }
 
+function register() {
+    const nombre = document.getElementById("registerNombre")?.value?.trim();
+    const email = document.getElementById("registerEmail")?.value?.trim();
+    const password = document.getElementById("registerPassword")?.value?.trim();
+    const rol = document.getElementById("registerRol")?.value || "USER";
+    const mensaje = document.getElementById("mensajeRegistro");
+
+    if (!nombre || !email || !password) {
+        if (mensaje) mensaje.textContent = "Completa nombre, email y contrasena para crear el usuario";
+        return;
+    }
+
+    fetch(`${AUTH_URL}/register`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nombre: nombre,
+            email: email,
+            password: password,
+            rol: rol
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => {
+                throw new Error(text || `Error ${response.status}`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (mensaje) mensaje.textContent = `Usuario ${data.nombre} creado correctamente. Ya puedes iniciar sesion.`;
+
+        const nombreInput = document.getElementById("registerNombre");
+        const emailInput = document.getElementById("registerEmail");
+        const passwordInput = document.getElementById("registerPassword");
+        const rolInput = document.getElementById("registerRol");
+        const loginEmail = document.getElementById("email");
+
+        if (nombreInput) nombreInput.value = "";
+        if (emailInput) emailInput.value = "";
+        if (passwordInput) passwordInput.value = "";
+        if (rolInput) rolInput.value = "USER";
+        if (loginEmail) loginEmail.value = data.email;
+    })
+    .catch(error => {
+        if (mensaje) {
+            mensaje.textContent = error.message.includes("Failed to fetch")
+                ? "No se pudo conectar con el backend publicado para crear el usuario."
+                : error.message;
+        }
+    });
+}
 function login() {
     const email = document.getElementById("email")?.value?.trim();
     const password = document.getElementById("password")?.value?.trim();
@@ -906,6 +961,7 @@ function login() {
         }
     });
 }
+
 
 
 

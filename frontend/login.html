@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -21,36 +21,66 @@
                 </span>
             </a>
             <p class="eyebrow">Acceso seguro</p>
-            <h1>Entra a tu espacio de gestion y alquiler.</h1>
-            <p class="login-text">Accede para administrar el catalogo, revisar alquileres activos y continuar con reservas desde una experiencia pensada para clientes y personal interno.</p>
+            <h1>Accede o crea tu cuenta para empezar a alquilar.</h1>
+            <p class="login-text">Gestiona reservas, consulta componentes disponibles y entra en tu panel personal desde una experiencia preparada para clientes y administradores.</p>
             <div class="demo-box">
                 <p class="panel-label">Credenciales de prueba</p>
                 <p class="demo-user"><strong>Administrador:</strong> admin@alquilerpc.com / admin123</p>
                 <p class="demo-user"><strong>Usuario:</strong> usuario@alquilerpc.com / user123</p>
             </div>
             <div class="login-side-note">
-                <span>Catalogo actualizado</span>
+                <span>Registro inmediato</span>
+                <span>Catalogo siempre disponible</span>
                 <span>Flujo de alquiler guiado</span>
-                <span>Interfaz preparada para publicar</span>
             </div>
         </aside>
 
-        <div class="login-card elevated-card">
-            <p class="eyebrow">Inicio de sesion</p>
-            <h2>Bienvenido a AlquiParts</h2>
-            <p class="login-text">Introduce tu correo y tu contraseña para acceder a la plataforma.</p>
+        <div class="login-card-stack">
+            <section class="login-card elevated-card auth-panel">
+                <p class="eyebrow">Inicio de sesion</p>
+                <h2>Bienvenido a AlquiParts</h2>
+                <p class="login-text">Introduce tu correo y tu contrasena para acceder a la plataforma.</p>
 
-            <label class="field-label" for="email">Correo electronico</label>
-            <input type="email" id="email" placeholder="usuario">
-            <label class="field-label" for="password">Contraseña</label>
-            <input type="password" id="password" placeholder="Introduce tu contraseña">
+                <label class="field-label" for="email">Correo electronico</label>
+                <input type="email" id="email" placeholder="usuario@correo.com">
+                <label class="field-label" for="password">Contrasena</label>
+                <input type="password" id="password" placeholder="Introduce tu contrasena">
 
-            <button onclick="login()">Entrar al panel</button>
-            <p id="mensajeLogin" class="status-text"></p>
-            <div class="login-links-row">
-                <a class="link-inline" href="index.html">Volver al inicio</a>
-                <a class="link-inline muted-inline" href="index.html#catalogo">Ver catalogo publico</a>
-            </div>
+                <button onclick="login()">Entrar al panel</button>
+                <p id="mensajeLogin" class="status-text"></p>
+                <div class="login-links-row">
+                    <a class="link-inline" href="index.html">Volver al inicio</a>
+                    <a class="link-inline muted-inline" href="index.html#catalogo">Ver catalogo publico</a>
+                </div>
+            </section>
+
+            <section class="login-card elevated-card auth-panel auth-panel-secondary">
+                <p class="eyebrow">Nuevo usuario</p>
+                <h2>Crea una cuenta nueva</h2>
+                <p class="login-text">Registra usuarios reales para entrar con ellos despues. Puedes crear perfiles de cliente o de administracion.</p>
+
+                <div class="auth-grid">
+                    <div>
+                        <label class="field-label" for="registerNombre">Nombre completo</label>
+                        <input type="text" id="registerNombre" placeholder="Ejemplo: Ivan Lopez">
+                    </div>
+                    <div>
+                        <label class="field-label" for="registerRol">Tipo de cuenta</label>
+                        <select id="registerRol">
+                            <option value="USER">Usuario</option>
+                            <option value="ADMIN">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="field-label" for="registerEmail">Correo electronico</label>
+                <input type="email" id="registerEmail" placeholder="nuevo@correo.com">
+                <label class="field-label" for="registerPassword">Contrasena</label>
+                <input type="password" id="registerPassword" placeholder="Minimo una contrasena para acceder">
+
+                <button onclick="register()">Crear usuario</button>
+                <p id="mensajeRegistro" class="status-text"></p>
+            </section>
         </div>
     </div>
 </div>

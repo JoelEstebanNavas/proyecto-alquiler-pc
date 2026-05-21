@@ -575,6 +575,11 @@ textarea {
     box-shadow: var(--shadow-sm);
 }
 
+.component-focus {
+    border-color: rgba(201, 111, 51, 0.95);
+    box-shadow: 0 0 0 4px rgba(201, 111, 51, 0.14), 0 22px 34px rgba(24, 36, 49, 0.12);
+}
+
 #lista.catalog-grid .item-card {
     height: 100%;
     margin-bottom: 0;

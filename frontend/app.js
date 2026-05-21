@@ -3,6 +3,7 @@ const AUTH_URL = "https://spirited-spontaneity-production.up.railway.app/api/aut
 const ALQUILER_URL = "https://spirited-spontaneity-production.up.railway.app/api/alquileres";
 let componenteEnEdicionId = null;
 let componentesCache = [];
+let alquileresCache = [];
 
 window.onload = function() {
     if (document.getElementById("lista")) {
@@ -165,11 +166,14 @@ function configurarVistaPorRol() {
 }
 
 function cargar() {
-    fetch(URL)
-        .then(response => response.json())
-        .then(data => {
-            componentesCache = data;
-            actualizarResumen(data);
+    Promise.all([
+        fetch(URL).then(response => response.json()),
+        fetch(ALQUILER_URL).then(response => response.json()).catch(() => [])
+    ])
+        .then(([componentes, alquileres]) => {
+            componentesCache = componentes;
+            alquileresCache = Array.isArray(alquileres) ? alquileres : [];
+            actualizarResumen(componentes);
             cargarAlquileresUsuario();
             aplicarFiltros();
         })
@@ -193,6 +197,7 @@ function aplicarFiltros() {
     if (componentesCache.length === 0) {
         const li = document.createElement("li");
         li.className = "item-card";
+        li.dataset.componenteId = c.id;
         li.innerHTML = `
             <div class="item-info">
                 <strong>No hay componentes registrados</strong>
@@ -248,6 +253,7 @@ function aplicarFiltros() {
             <strong>${c.nombre}</strong>
             <span>${c.tipo}</span>
             <span>${obtenerResumenDescripcion(c.descripcion)}</span>
+            <span>${obtenerDisponibilidadComponente(c)}</span>
             <span class="badge ${c.estado.toLowerCase()}">${c.estado}</span>
         `;
         li.appendChild(info);
@@ -294,6 +300,8 @@ function aplicarFiltros() {
 
         lista.appendChild(li);
     });
+
+    resaltarComponentePendiente();
 }
 
 function limpiarFiltros() {
@@ -322,6 +330,36 @@ function obtenerResumenDescripcion(descripcion) {
     return descripcion.length > 96
         ? `${descripcion.slice(0, 96).trim()}...`
         : descripcion;
+}
+
+function obtenerDisponibilidadComponente(componente) {
+    if (componente.estado !== "Alquilado") {
+        return "Disponible para reserva inmediata.";
+    }
+
+    const alquilerActivo = alquileresCache.find(alquiler =>
+        alquiler.componente?.id === componente.id && alquiler.estado === "Activo"
+    );
+
+    if (!alquilerActivo?.fechaFin) {
+        return "Actualmente alquilado.";
+    }
+
+    return `Disponible a partir del ${formatearFecha(alquilerActivo.fechaFin)}.`;
+}
+
+function formatearFecha(fechaTexto) {
+    const fecha = new Date(`${fechaTexto}T00:00:00`);
+
+    if (Number.isNaN(fecha.getTime())) {
+        return fechaTexto;
+    }
+
+    return fecha.toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
 }
 
 function obtenerImagenPorTipo(tipo) {
@@ -360,7 +398,46 @@ function actualizarResumen(componentes) {
 }
 
 function verDetalleComponente(componenteId) {
+    localStorage.setItem("volverAComponenteId", String(componenteId));
     window.location.href = `detalle.html?id=${componenteId}`;
+}
+
+function volverAExplorar(evento) {
+    const params = new URLSearchParams(window.location.search);
+    const componenteId = params.get("id");
+
+    if (componenteId) {
+        localStorage.setItem("volverAComponenteId", componenteId);
+    }
+
+    if (evento) {
+        evento.preventDefault();
+    }
+
+    window.location.href = "index.html#catalogo";
+}
+
+function resaltarComponentePendiente() {
+    const componenteId = localStorage.getItem("volverAComponenteId");
+
+    if (!componenteId) {
+        return;
+    }
+
+    const tarjeta = document.querySelector(`[data-componente-id="${componenteId}"]`);
+
+    if (!tarjeta) {
+        return;
+    }
+
+    localStorage.removeItem("volverAComponenteId");
+
+    tarjeta.scrollIntoView({ behavior: "smooth", block: "center" });
+    tarjeta.classList.add("component-focus");
+
+    setTimeout(() => {
+        tarjeta.classList.remove("component-focus");
+    }, 2200);
 }
 
 function cargarDetalleComponente() {

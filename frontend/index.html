@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -20,36 +20,36 @@
             </span>
         </a>
         <nav class="site-nav">
-            <a href="#catalogo">Catalogo</a>
+            <a href="#catalogo">Catálogo</a>
             <a href="#servicios">Servicios</a>
             <a href="#bloqueAlquileres">Mis alquileres</a>
         </nav>
         <div class="nav-actions">
             <p id="usuarioInfo" class="session-chip">Invitado</p>
             <a class="link-button" id="loginLink" href="login.html">Acceder</a>
-            <button type="button" id="logoutButton" class="secondary-button compact-button" onclick="cerrarSesion()">Cerrar sesion</button>
+            <button type="button" id="logoutButton" class="secondary-button compact-button" onclick="cerrarSesion()">Cerrar sesión</button>
         </div>
     </header>
 
     <section class="hero hero-home">
         <div class="hero-copy hero-copy-wide">
-            <p class="eyebrow">Plataforma de alquiler tecnologico</p>
+            <p class="eyebrow">Plataforma de alquiler tecnológico</p>
             <h1>AlquiParts pone a tu alcance componentes y equipos listos para usar.</h1>
-            <p class="hero-text">Reserva monitores, memorias, almacenamiento, perifericos y hardware profesional desde una experiencia clara, moderna y preparada para produccion.</p>
+            <p class="hero-text">Reserva monitores, memorias, almacenamiento, periféricos y hardware profesional desde una experiencia clara, moderna y preparada para producción.</p>
             <div class="hero-cta-row">
-                <a class="primary-cta" href="#catalogo">Explorar catalogo</a>
-                <a class="ghost-cta" href="login.html">Iniciar sesion</a>
+                <a class="primary-cta" href="#catalogo">Explorar catálogo</a>
+                <a class="ghost-cta" href="login.html">Iniciar sesión</a>
             </div>
             <div class="trust-strip">
                 <span>Disponibilidad en tiempo real</span>
-                <span>Gestion por roles</span>
+                <span>Gestión por roles</span>
                 <span>Proceso de alquiler guiado</span>
             </div>
         </div>
         <div class="hero-showcase">
             <div class="showcase-card spotlight-card">
-                <p class="spotlight-kicker">Catalogo activo</p>
-                <h3>Infraestructura flexible para estudios, eventos y soporte tecnico.</h3>
+                <p class="spotlight-kicker">Catálogo activo</p>
+                <h3>Infraestructura flexible para estudios, eventos y soporte técnico.</h3>
                 <p>Consulta el estado de cada componente y completa el alquiler en pocos pasos.</p>
             </div>
             <div class="showcase-stats">
@@ -67,7 +67,7 @@
                 </article>
                 <article class="mini-stat accent-stat">
                     <span>Rol activo</span>
-                    <strong id="rolActivo">Sin sesion</strong>
+                    <strong id="rolActivo">Sin sesión</strong>
                 </article>
             </div>
         </div>
@@ -77,17 +77,17 @@
         <article class="feature-card">
             <p class="feature-index">01</p>
             <h3>Inventario claro</h3>
-            <p>Visualiza de un vistazo que piezas estan libres, alquiladas o listas para mantenimiento.</p>
+            <p>Visualiza de un vistazo que piezas están libres, alquiladas o listas para mantenimiento.</p>
         </article>
         <article class="feature-card">
             <p class="feature-index">02</p>
             <h3>Flujo sencillo</h3>
-            <p>Busqueda, filtros, reserva y pago en una misma experiencia, sin pasos confusos.</p>
+            <p>Búsqueda, filtros, reserva y pago en una misma experiencia, sin pasos confusos.</p>
         </article>
         <article class="feature-card">
             <p class="feature-index">03</p>
-            <h3>Gestion profesional</h3>
-            <p>Los administradores pueden actualizar el catalogo y los usuarios controlar sus alquileres.</p>
+            <h3>Gestión profesional</h3>
+            <p>Los administradores pueden actualizar el catálogo y los usuarios controlar sus alquileres.</p>
         </article>
     </section>
 
@@ -96,7 +96,7 @@
             <div>
                 <p class="eyebrow">Entorno de trabajo</p>
                 <h2>Centro operativo de AlquiParts</h2>
-                <p class="hero-text">Desde aqui puedes consultar el catalogo, filtrar componentes, gestionar el inventario o revisar tus alquileres segun el rol con el que hayas iniciado sesion.</p>
+                <p class="hero-text">Desde aquí puedes consultar el catálogo, filtrar componentes, gestionar el inventario o revisar tus alquileres según el rol con el que hayas iniciado sesión.</p>
             </div>
             <p id="mensajeRol" class="status-text status-inline"></p>
         </div>
@@ -105,7 +105,7 @@
             <div class="form admin-panel" id="bloqueAdmin">
                 <div class="section-heading">
                     <p class="eyebrow">Panel administrador</p>
-                    <h2 id="tituloFormularioAdmin">Anadir componente</h2>
+                    <h2 id="tituloFormularioAdmin">Añadir componente</h2>
                 </div>
                 <p id="mensajeFormularioAdmin" class="status-text"></p>
                 <label class="field-label" for="nombre">Nombre</label>
@@ -117,14 +117,14 @@
                     <option value="Memoria RAM">Memoria RAM</option>
                     <option value="SSD">SSD</option>
                     <option value="HDD">HDD</option>
-                    <option value="Grafica">Grafica</option>
+                    <option value="Grafica">Gráfica</option>
                     <option value="Procesador">Procesador</option>
                     <option value="Placa base">Placa base</option>
-                    <option value="Refrigeracion">Refrigeracion</option>
+                    <option value="Refrigeracion">Refrigeración</option>
                     <option value="Caja">Caja</option>
-                    <option value="Fuente de alimentacion">Fuente de alimentacion</option>
+                    <option value="Fuente de alimentacion">Fuente de alimentación</option>
                     <option value="Monitor">Monitor</option>
-                    <option value="Periferico">Periferico</option>
+                    <option value="Periferico">Periférico</option>
                 </select>
                 <label class="field-label" for="estado">Estado</label>
                 <select id="estado">
@@ -134,14 +134,14 @@
                 </select>
                 <div class="user-actions form-actions">
                     <button type="button" id="botonGuardarComponente" onclick="guardar()">Guardar componente</button>
-                    <button type="button" class="secondary-button" id="botonCancelarEdicion" onclick="cancelarEdicion()" style="display: none;">Cancelar edicion</button>
+                    <button type="button" class="secondary-button" id="botonCancelarEdicion" onclick="cancelarEdicion()" style="display: none;">Cancelar edición</button>
                 </div>
             </div>
 
             <div class="listado catalog-panel">
                 <div class="list-header">
                     <div class="section-heading">
-                        <p class="eyebrow">Catalogo vivo</p>
+                        <p class="eyebrow">Catálogo vivo</p>
                         <h2>Componentes disponibles</h2>
                     </div>
                 </div>
@@ -158,14 +158,14 @@
                             <option value="Memoria RAM">Memoria RAM</option>
                             <option value="SSD">SSD</option>
                             <option value="HDD">HDD</option>
-                            <option value="Grafica">Grafica</option>
+                            <option value="Grafica">Gráfica</option>
                             <option value="Procesador">Procesador</option>
                             <option value="Placa base">Placa base</option>
-                            <option value="Refrigeracion">Refrigeracion</option>
+                            <option value="Refrigeracion">Refrigeración</option>
                             <option value="Caja">Caja</option>
-                            <option value="Fuente de alimentacion">Fuente de alimentacion</option>
+                            <option value="Fuente de alimentacion">Fuente de alimentación</option>
                             <option value="Monitor">Monitor</option>
-                            <option value="Periferico">Periferico</option>
+                            <option value="Periferico">Periférico</option>
                         </select>
                     </div>
                     <div class="filter-group">
@@ -204,4 +204,7 @@
 <script src="app.js"></script>
 </body>
 </html>
+
+
+
 

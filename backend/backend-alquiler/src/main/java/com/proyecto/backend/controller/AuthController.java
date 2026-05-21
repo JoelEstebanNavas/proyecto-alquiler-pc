@@ -1,4 +1,4 @@
-package com.proyecto.backend.controller;
+﻿package com.proyecto.backend.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,9 +38,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("El email ya existe");
         }
 
-        if (usuario.getRol() == null || usuario.getRol().isBlank()) {
-            usuario.setRol("USER");
-        }
+        usuario.setRol("USER");
 
         Usuario guardado = usuarioRepository.save(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
@@ -63,3 +61,6 @@ public class AuthController {
         return ResponseEntity.ok(respuesta);
     }
 }
+
+
+

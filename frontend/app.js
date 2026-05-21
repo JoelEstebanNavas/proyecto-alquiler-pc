@@ -58,15 +58,15 @@ function configurarVistaPorRol() {
     if (usuarioInfo) {
         usuarioInfo.textContent = usuario
             ? `${usuario.nombre} - ${usuario.rol}`
-            : "Invitado - sin sesion iniciada";
+            : "Invitado - sin sesión iniciada";
     }
 
     if (rolActivo) {
-        rolActivo.textContent = usuario ? usuario.rol : "Sin sesion";
+        rolActivo.textContent = usuario ? usuario.rol : "Sin sesión";
     }
 
     if (loginLink) {
-        loginLink.textContent = usuario ? "Cambiar sesion" : "Ir al login";
+        loginLink.textContent = usuario ? "Cambiar sesión" : "Ir al login";
     }
 
     if (logoutButton) {
@@ -87,7 +87,7 @@ function configurarVistaPorRol() {
             bloqueAlquileres.style.display = "none";
         }
         if (mensajeRol) {
-            mensajeRol.textContent = "Explora el catalogo publicamente o inicia sesion para alquilar y gestionar componentes.";
+            mensajeRol.textContent = "Explora el catálogo públicamente o inicia sesión para alquilar y gestionar componentes.";
         }
         return;
     }
@@ -106,7 +106,7 @@ function configurarVistaPorRol() {
             bloqueAlquileres.style.display = "none";
         }
         if (mensajeRol) {
-            mensajeRol.textContent = "Modo administrador: puedes anadir componentes y consultar el catalogo.";
+            mensajeRol.textContent = "Modo administrador: puedes añadir componentes y consultar el catálogo.";
         }
     } else {
         if (container) {
@@ -159,7 +159,7 @@ function aplicarFiltros() {
         li.innerHTML = `
             <div class="item-info">
                 <strong>No hay componentes registrados</strong>
-                <span>Anade un componente nuevo para empezar a trabajar con el catalogo.</span>
+                <span>Añade un componente nuevo para empezar a trabajar con el catálogo.</span>
             </div>
         `;
         lista.appendChild(li);
@@ -178,7 +178,7 @@ function aplicarFiltros() {
 
     if (mensajeFiltros) {
         mensajeFiltros.textContent = componentesFiltrados.length === componentesCache.length
-            ? `Mostrando ${componentesFiltrados.length} componentes del catalogo.`
+            ? `Mostrando ${componentesFiltrados.length} componentes del catálogo.`
             : `Mostrando ${componentesFiltrados.length} de ${componentesCache.length} componentes.`;
     }
 
@@ -188,7 +188,7 @@ function aplicarFiltros() {
         li.innerHTML = `
             <div class="item-info">
                 <strong>No hay resultados</strong>
-                <span>Prueba con otra busqueda o cambia los filtros aplicados.</span>
+                <span>Prueba con otra búsqueda o cambia los filtros aplicados.</span>
             </div>
         `;
         lista.appendChild(li);
@@ -250,12 +250,12 @@ function aplicarFiltros() {
 }
 
 function limpiarFiltros() {
-    const busqueda = document.getElementById("busquedaComponente");
+    const búsqueda = document.getElementById("busquedaComponente");
     const filtroTipo = document.getElementById("filtroTipo");
     const filtroEstado = document.getElementById("filtroEstado");
 
-    if (busqueda) {
-        busqueda.value = "";
+    if (búsqueda) {
+        búsqueda.value = "";
     }
     if (filtroTipo) {
         filtroTipo.value = "";
@@ -273,13 +273,13 @@ function obtenerImagenPorTipo(tipo) {
     if (tipoNormalizado.includes("ram")) return "img/ram.svg";
     if (tipoNormalizado.includes("ssd")) return "img/ssd.svg";
     if (tipoNormalizado.includes("hdd")) return "img/hdd.svg";
-    if (tipoNormalizado.includes("graf")) return "img/grafica.svg";
+    if (tipoNormalizado.includes("graf")) return "img/gráfica.svg";
     if (tipoNormalizado.includes("procesador")) return "img/procesador.svg";
     if (tipoNormalizado.includes("placa")) return "img/placa-base.svg";
-    if (tipoNormalizado.includes("refriger")) return "img/refrigeracion.svg";
+    if (tipoNormalizado.includes("refriger")) return "img/refrigeración.svg";
     if (tipoNormalizado.includes("caja")) return "img/caja.svg";
     if (tipoNormalizado.includes("monitor")) return "img/monitor.svg";
-    if (tipoNormalizado.includes("perifer")) return "img/periferico.svg";
+    if (tipoNormalizado.includes("perifer")) return "img/periférico.svg";
     if (tipoNormalizado.includes("fuente")) return "img/fuente.svg";
 
     return "img/monitor.svg";
@@ -325,7 +325,7 @@ function cargarAlquileresUsuario() {
         .then(alquileres => {
             mensaje.textContent = alquileres.length > 0
                 ? "Consulta el estado de tus alquileres y realiza devoluciones cuando sea necesario."
-                : "Todavia no tienes alquileres registrados.";
+                : "Todavía no tienes alquileres registrados.";
 
             if (alquileres.length === 0) {
                 const li = document.createElement("li");
@@ -349,7 +349,7 @@ function cargarAlquileresUsuario() {
                 info.innerHTML = `
                     <strong>${alquiler.componente.nombre}</strong>
                     <span>Desde ${alquiler.fechaInicio} hasta ${alquiler.fechaFin}</span>
-                    <span>Pago: ${alquiler.metodoPago}</span>
+                    <span>Pago: ${alquiler.métodoPago}</span>
                     <span class="badge ${alquiler.estado.toLowerCase()}">${alquiler.estado}</span>
                 `;
                 li.appendChild(info);
@@ -379,11 +379,11 @@ function guardar() {
     const tipo = document.getElementById("tipo").value;
     const estado = document.getElementById("estado").value;
     const mensaje = document.getElementById("mensajeFormularioAdmin");
-    const metodo = componenteEnEdicionId ? "PUT" : "POST";
+    const método = componenteEnEdicionId ? "PUT" : "POST";
     const urlDestino = componenteEnEdicionId ? `${URL}/${componenteEnEdicionId}` : URL;
 
     if (!usuario || usuario.rol !== "ADMIN") {
-        mostrarMensaje("mensajeFormularioAdmin", "Solo un administrador puede anadir componentes.");
+        mostrarMensaje("mensajeFormularioAdmin", "Solo un administrador puede añadir componentes.");
         return;
     }
 
@@ -393,7 +393,7 @@ function guardar() {
     }
 
     fetch(urlDestino, {
-        method: metodo,
+        method: método,
         headers: {
             "Content-Type": "application/json",
             "X-User-Role": usuario.rol
@@ -439,7 +439,7 @@ function limpiarFormulario() {
     const botonCancelar = document.getElementById("botonCancelarEdicion");
 
     if (titulo) {
-        titulo.textContent = "Anadir componente";
+        titulo.textContent = "Añadir componente";
     }
     if (botonGuardar) {
         botonGuardar.textContent = "Guardar componente";
@@ -495,7 +495,7 @@ function iniciarProcesoAlquiler(componente) {
     const usuario = obtenerUsuarioActivo();
 
     if (!usuario || usuario.rol !== "USER") {
-        mostrarMensaje("mensajeCatalogoAccion", "Debes iniciar sesion como usuario para alquilar.");
+        mostrarMensaje("mensajeCatalogoAccion", "Debes iniciar sesión como usuario para alquilar.");
         return;
     }
 
@@ -515,7 +515,7 @@ function prepararFormularioAlquiler() {
 
     if (!usuario || usuario.rol !== "USER") {
         if (mensaje) {
-            mensaje.textContent = "Debes iniciar sesion como usuario para completar el alquiler.";
+            mensaje.textContent = "Debes iniciar sesión como usuario para completar el alquiler.";
         }
         return;
     }
@@ -524,7 +524,7 @@ function prepararFormularioAlquiler() {
         if (resumen) {
             resumen.innerHTML = `
                 <p class="panel-label">Componente seleccionado</p>
-                <p class="demo-user">No hay ningun componente pendiente de alquiler.</p>
+                <p class="demo-user">No hay ningún componente pendiente de alquiler.</p>
             `;
         }
         return;
@@ -554,7 +554,7 @@ function prepararFormularioAlquiler() {
 
     const nombreCompleto = document.getElementById("nombreCompleto");
     const telefono = document.getElementById("telefono");
-    const direccion = document.getElementById("direccion");
+    const dirección = document.getElementById("dirección");
 
     if (nombreCompleto) {
         nombreCompleto.value = datosGuardados?.nombreCompleto || usuario.nombre || "";
@@ -562,8 +562,8 @@ function prepararFormularioAlquiler() {
     if (telefono) {
         telefono.value = datosGuardados?.telefono || "";
     }
-    if (direccion) {
-        direccion.value = datosGuardados?.direccion || "";
+    if (dirección) {
+        dirección.value = datosGuardados?.dirección || "";
     }
 }
 
@@ -574,20 +574,20 @@ function continuarAlPago() {
     const fechaFin = document.getElementById("fechaFin")?.value;
     const nombreCompleto = document.getElementById("nombreCompleto")?.value?.trim();
     const telefono = document.getElementById("telefono")?.value?.trim();
-    const direccion = document.getElementById("direccion")?.value?.trim();
+    const dirección = document.getElementById("dirección")?.value?.trim();
     const mensaje = document.getElementById("mensajeAlquilerFormulario");
 
     if (!usuario || usuario.rol !== "USER") {
-        if (mensaje) mensaje.textContent = "Debes iniciar sesion como usuario para continuar.";
+        if (mensaje) mensaje.textContent = "Debes iniciar sesión como usuario para continuar.";
         return;
     }
 
     if (!componente) {
-        if (mensaje) mensaje.textContent = "No hay ningun componente seleccionado.";
+        if (mensaje) mensaje.textContent = "No hay ningún componente seleccionado.";
         return;
     }
 
-    if (!fechaInicio || !fechaFin || !nombreCompleto || !telefono || !direccion) {
+    if (!fechaInicio || !fechaFin || !nombreCompleto || !telefono || !dirección) {
         if (mensaje) mensaje.textContent = "Debes completar todos los datos del alquiler.";
         return;
     }
@@ -602,7 +602,7 @@ function continuarAlPago() {
         fechaFin: fechaFin,
         nombreCompleto: nombreCompleto,
         telefono: telefono,
-        direccion: direccion
+        dirección: dirección
     });
 
     window.location.href = "pago.html";
@@ -616,7 +616,7 @@ function prepararFormularioPago() {
     const mensaje = document.getElementById("mensajePagoFormulario");
 
     if (!usuario || usuario.rol !== "USER") {
-        if (mensaje) mensaje.textContent = "Debes iniciar sesion como usuario para completar el pago.";
+        if (mensaje) mensaje.textContent = "Debes iniciar sesión como usuario para completar el pago.";
         return;
     }
 
@@ -642,7 +642,7 @@ function prepararFormularioPago() {
 }
 
 function actualizarCamposPago() {
-    const metodo = document.getElementById("metodoPago")?.value;
+    const método = document.getElementById("métodoPago")?.value;
     const detalle = document.getElementById("detallePago");
     const ayuda = document.getElementById("ayudaPago");
 
@@ -650,21 +650,21 @@ function actualizarCamposPago() {
         return;
     }
 
-    if (metodo === "Bizum") {
+    if (método === "Bizum") {
         detalle.innerHTML = `
-            <label class="field-label" for="telefonoBizum">Numero de telefono</label>
+            <label class="field-label" for="telefonoBizum">Número de telefono</label>
             <input type="text" id="telefonoBizum" placeholder="Ejemplo: 612345678">
         `;
-        ayuda.textContent = "Introduce un numero de telefono asociado a Bizum.";
+        ayuda.textContent = "Introduce un número de telefono asociado a Bizum.";
         return;
     }
 
-    if (metodo === "Tarjeta") {
+    if (método === "Tarjeta") {
         detalle.innerHTML = `
             <label class="field-label" for="titularTarjeta">Titular</label>
             <input type="text" id="titularTarjeta" placeholder="Nombre del titular">
-            <label class="field-label" for="numeroTarjeta">Numero de tarjeta</label>
-            <input type="text" id="numeroTarjeta" placeholder="1111 2222 3333 4444">
+            <label class="field-label" for="númeroTarjeta">Número de tarjeta</label>
+            <input type="text" id="númeroTarjeta" placeholder="1111 2222 3333 4444">
             <label class="field-label" for="caducidadTarjeta">Caducidad</label>
             <input type="text" id="caducidadTarjeta" placeholder="MM/AA">
             <label class="field-label" for="cvvTarjeta">CVV</label>
@@ -674,7 +674,7 @@ function actualizarCamposPago() {
         return;
     }
 
-    if (metodo === "Transferencia") {
+    if (método === "Transferencia") {
         detalle.innerHTML = `
             <label class="field-label" for="ibanTransferencia">IBAN</label>
             <input type="text" id="ibanTransferencia" placeholder="ES00 0000 0000 0000 0000 0000">
@@ -684,14 +684,14 @@ function actualizarCamposPago() {
     }
 
     detalle.innerHTML = "";
-    ayuda.textContent = "Selecciona un metodo de pago para continuar.";
+    ayuda.textContent = "Seleccióna un método de pago para continuar.";
 }
 
 function confirmarAlquiler() {
     const usuario = obtenerUsuarioActivo();
     const componente = localStorage.getItem("componenteSeleccionado");
     const datos = obtenerPasoAlquiler();
-    const metodoPago = document.getElementById("metodoPago")?.value;
+    const métodoPago = document.getElementById("métodoPago")?.value;
     const mensaje = document.getElementById("mensajePagoFormulario");
 
     if (!usuario || usuario.rol !== "USER") {
@@ -704,12 +704,12 @@ function confirmarAlquiler() {
         return;
     }
 
-    if (!metodoPago) {
-        if (mensaje) mensaje.textContent = "Debes elegir un metodo de pago.";
+    if (!métodoPago) {
+        if (mensaje) mensaje.textContent = "Debes elegir un método de pago.";
         return;
     }
 
-    const detallePago = obtenerDetallePago(metodoPago);
+    const detallePago = obtenerDetallePago(métodoPago);
     if (!detallePago.valido) {
         if (mensaje) mensaje.textContent = detallePago.mensaje;
         return;
@@ -727,7 +727,7 @@ function confirmarAlquiler() {
             componenteId: componenteParseado.id,
             fechaInicio: datos.fechaInicio,
             fechaFin: datos.fechaFin,
-            metodoPago: metodoPago
+            métodoPago: métodoPago
         })
     })
     .then(response => {
@@ -751,28 +751,28 @@ function confirmarAlquiler() {
     });
 }
 
-function obtenerDetallePago(metodoPago) {
-    if (metodoPago === "Bizum") {
+function obtenerDetallePago(métodoPago) {
+    if (métodoPago === "Bizum") {
         const telefonoBizum = document.getElementById("telefonoBizum")?.value?.trim();
         if (!telefonoBizum) {
-            return { valido: false, mensaje: "Debes indicar un numero para Bizum." };
+            return { valido: false, mensaje: "Debes indicar un número para Bizum." };
         }
         return { valido: true };
     }
 
-    if (metodoPago === "Tarjeta") {
+    if (métodoPago === "Tarjeta") {
         const titular = document.getElementById("titularTarjeta")?.value?.trim();
-        const numero = document.getElementById("numeroTarjeta")?.value?.trim();
+        const número = document.getElementById("númeroTarjeta")?.value?.trim();
         const caducidad = document.getElementById("caducidadTarjeta")?.value?.trim();
         const cvv = document.getElementById("cvvTarjeta")?.value?.trim();
 
-        if (!titular || !numero || !caducidad || !cvv) {
+        if (!titular || !número || !caducidad || !cvv) {
             return { valido: false, mensaje: "Debes rellenar todos los datos de la tarjeta." };
         }
         return { valido: true };
     }
 
-    if (metodoPago === "Transferencia") {
+    if (métodoPago === "Transferencia") {
         const iban = document.getElementById("ibanTransferencia")?.value?.trim();
         if (!iban) {
             return { valido: false, mensaje: "Debes indicar un IBAN para la transferencia." };
@@ -780,7 +780,7 @@ function obtenerDetallePago(metodoPago) {
         return { valido: true };
     }
 
-    return { valido: false, mensaje: "Selecciona un metodo de pago valido." };
+    return { valido: false, mensaje: "Seleccióna un método de pago valido." };
 }
 
 function devolverAlquiler(alquilerId) {
@@ -871,7 +871,7 @@ function register() {
     const mensaje = document.getElementById("mensajeRegistro");
 
     if (!nombre || !email || !password) {
-        if (mensaje) mensaje.textContent = "Completa nombre, email y contrasena para crear el usuario";
+        if (mensaje) mensaje.textContent = "Completa nombre, email y contraseña para crear el usuario";
         return;
     }
 
@@ -884,7 +884,7 @@ function register() {
             nombre: nombre,
             email: email,
             password: password,
-            rol: rol
+            rol: "USER"
         })
     })
     .then(response => {
@@ -896,18 +896,16 @@ function register() {
         return response.json();
     })
     .then(data => {
-        if (mensaje) mensaje.textContent = `Usuario ${data.nombre} creado correctamente. Ya puedes iniciar sesion.`;
+        if (mensaje) mensaje.textContent = `Usuario ${data.nombre} creado correctamente. Ya puedes iniciar sesión.`;
 
         const nombreInput = document.getElementById("registerNombre");
         const emailInput = document.getElementById("registerEmail");
         const passwordInput = document.getElementById("registerPassword");
-        const rolInput = document.getElementById("registerRol");
         const loginEmail = document.getElementById("email");
 
         if (nombreInput) nombreInput.value = "";
         if (emailInput) emailInput.value = "";
         if (passwordInput) passwordInput.value = "";
-        if (rolInput) rolInput.value = "USER";
         if (loginEmail) loginEmail.value = data.email;
     })
     .catch(error => {
@@ -924,7 +922,7 @@ function login() {
     const mensaje = document.getElementById("mensajeLogin");
 
     if (!email || !password) {
-        if (mensaje) mensaje.textContent = "Rellena email y contrasena";
+        if (mensaje) mensaje.textContent = "Rellena email y contraseña";
         return;
     }
 
@@ -961,6 +959,12 @@ function login() {
         }
     });
 }
+
+
+
+
+
+
 
 
 

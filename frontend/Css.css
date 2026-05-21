@@ -783,3 +783,86 @@ select:focus {
         grid-template-columns: 1fr;
     }
 }
+
+.login-layout-enhanced {
+    grid-template-columns: minmax(380px, 1.1fr) minmax(360px, 440px);
+    align-items: stretch;
+}
+
+.login-side-hero {
+    position: relative;
+    overflow: hidden;
+    gap: 22px;
+}
+
+.login-side-hero::after {
+    content: "";
+    position: absolute;
+    right: -70px;
+    bottom: -90px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 111, 51, 0.28) 0%, rgba(201, 111, 51, 0) 70%);
+}
+
+.login-card-stack {
+    gap: 18px;
+}
+
+.auth-panel-primary {
+    background: linear-gradient(180deg, rgba(255, 251, 247, 0.98) 0%, rgba(252, 246, 239, 0.96) 100%);
+}
+
+.login-spotlight-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.login-spotlight-card {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 14px 30px rgba(6, 12, 18, 0.18);
+}
+
+.login-spotlight-card-strong {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
+}
+
+.login-spotlight-card strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.08rem;
+    color: #fff;
+}
+
+.login-spotlight-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.74);
+    line-height: 1.6;
+}
+
+.login-spotlight-label {
+    display: inline-flex;
+    margin-bottom: 10px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.login-side-note-wide {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 1080px) {
+    .login-layout-enhanced {
+        grid-template-columns: 1fr;
+    }
+}

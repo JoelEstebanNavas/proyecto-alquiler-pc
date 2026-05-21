@@ -352,7 +352,7 @@ function cargarAlquileresUsuario() {
                 info.innerHTML = `
                     <strong>${alquiler.componente.nombre}</strong>
                     <span>Desde ${alquiler.fechaInicio} hasta ${alquiler.fechaFin}</span>
-                    <span>Pago: ${alquiler.métodoPago}</span>
+                    <span>Pago: ${alquiler.metodoPago}</span>
                     <span class="badge ${alquiler.estado.toLowerCase()}">${alquiler.estado}</span>
                 `;
                 li.appendChild(info);
@@ -730,7 +730,7 @@ function confirmarAlquiler() {
             componenteId: componenteParseado.id,
             fechaInicio: datos.fechaInicio,
             fechaFin: datos.fechaFin,
-            métodoPago: métodoPago
+            metodoPago: métodoPago
         })
     })
     .then(response => {

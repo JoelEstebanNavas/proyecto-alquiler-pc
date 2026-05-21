@@ -197,7 +197,6 @@ function aplicarFiltros() {
     if (componentesCache.length === 0) {
         const li = document.createElement("li");
         li.className = "item-card";
-        li.dataset.componenteId = c.id;
         li.innerHTML = `
             <div class="item-info">
                 <strong>No hay componentes registrados</strong>
@@ -240,6 +239,7 @@ function aplicarFiltros() {
     componentesFiltrados.forEach(c => {
         const li = document.createElement("li");
         li.className = "item-card";
+        li.dataset.componenteId = c.id;
 
         const imagen = document.createElement("img");
         imagen.className = "item-image";
@@ -337,9 +337,13 @@ function obtenerDisponibilidadComponente(componente) {
         return "Disponible para reserva inmediata.";
     }
 
-    const alquilerActivo = alquileresCache.find(alquiler =>
-        alquiler.componente?.id === componente.id && alquiler.estado === "Activo"
-    );
+    const alquilerActivo = alquileresCache
+        .filter(alquiler => alquiler.componente?.id === componente.id && alquiler.fechaFin)
+        .sort((a, b) => {
+            if (a.estado === "Activo" && b.estado !== "Activo") return -1;
+            if (a.estado !== "Activo" && b.estado === "Activo") return 1;
+            return new Date(b.fechaFin) - new Date(a.fechaFin);
+        })[0];
 
     if (!alquilerActivo?.fechaFin) {
         return "Actualmente alquilado.";
@@ -427,6 +431,7 @@ function resaltarComponentePendiente() {
     const tarjeta = document.querySelector(`[data-componente-id="${componenteId}"]`);
 
     if (!tarjeta) {
+        setTimeout(resaltarComponentePendiente, 350);
         return;
     }
 
@@ -479,6 +484,7 @@ function renderizarDetalleComponente(componente) {
     const descripcion = document.getElementById("detalleDescripcion");
     const imagen = document.getElementById("detalleImagen");
     const botonAlquilar = document.getElementById("detalleAlquilarBtn");
+    const mensaje = document.getElementById("mensajeDetalleComponente");
     const usuario = obtenerUsuarioActivo();
 
     if (nombre) nombre.textContent = componente.nombre;
@@ -494,6 +500,9 @@ function renderizarDetalleComponente(componente) {
     if (imagen) {
         imagen.src = obtenerImagenPorTipo(componente.tipo);
         imagen.alt = componente.nombre;
+    }
+    if (mensaje) {
+        mensaje.textContent = obtenerDisponibilidadComponente(componente);
     }
     if (botonAlquilar) {
         const puedeAlquilar = usuario && usuario.rol === "USER" && componente.estado === "Disponible";

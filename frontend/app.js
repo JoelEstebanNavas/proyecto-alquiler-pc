@@ -276,13 +276,13 @@ function obtenerImagenPorTipo(tipo) {
     if (tipoNormalizado.includes("ram")) return "img/ram.svg";
     if (tipoNormalizado.includes("ssd")) return "img/ssd.svg";
     if (tipoNormalizado.includes("hdd")) return "img/hdd.svg";
-    if (tipoNormalizado.includes("graf")) return "img/gráfica.svg";
+    if (tipoNormalizado.includes("graf")) return "img/grafica.svg";
     if (tipoNormalizado.includes("procesador")) return "img/procesador.svg";
     if (tipoNormalizado.includes("placa")) return "img/placa-base.svg";
-    if (tipoNormalizado.includes("refriger")) return "img/refrigeración.svg";
+    if (tipoNormalizado.includes("refriger")) return "img/refrigeracion.svg";
     if (tipoNormalizado.includes("caja")) return "img/caja.svg";
     if (tipoNormalizado.includes("monitor")) return "img/monitor.svg";
-    if (tipoNormalizado.includes("perifer")) return "img/periférico.svg";
+    if (tipoNormalizado.includes("perifer")) return "img/periferico.svg";
     if (tipoNormalizado.includes("fuente")) return "img/fuente.svg";
 
     return "img/monitor.svg";

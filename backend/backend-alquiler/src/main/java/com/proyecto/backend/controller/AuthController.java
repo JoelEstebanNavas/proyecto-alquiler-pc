@@ -1,4 +1,4 @@
-﻿package com.proyecto.backend.controller;
+package com.proyecto.backend.controller;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -901,11 +901,12 @@ function login() {
     .catch(error => {
         if (mensaje) {
             mensaje.textContent = error.message.includes("Failed to fetch")
-                ? "No se pudo conectar con el backend en localhost:8080"
+                ? "No se pudo conectar con el backend publicado. Revisa que el servicio backend este online y permita peticiones desde el frontend."
                 : error.message;
         }
     });
 }
+
 
 
 

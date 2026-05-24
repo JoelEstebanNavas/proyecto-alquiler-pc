@@ -56,7 +56,7 @@ Campos:
 - `rol`
 
 ### 4.3 Alquiler
-Representa el alquiler de un componente por parte de un usuario durante un periodo concreto.
+Representa el alquiler de un componente por parte de un usuaro durante un periodo concreto.
 
 Campos:
 - `id`
@@ -137,7 +137,7 @@ Se ha implementado una base funcional para los usuarios del sistema:
 - Restriccion basica para que solo `ADMIN` pueda anadir componentes
 - Restriccion basica para que solo `USER` pueda alquilar componentes
 
-El control de acceso es basico y no incluye seguridad avanzada, cifrado de contrasenas ni sesiones protegidas. Se ha priorizado que la funcionalidad principal quede operativa y clara.
+El control de acceso es basico y no incluye seguridad avanzada, cifrado de contraseñas ni sesiones protegidas. Se ha priorizado que la funcionalidad principal quede operativa y clara.
 
 ## 7. Base de datos
 
@@ -188,7 +188,6 @@ Las evidencias de la aplicacion incluyen:
 - Captura de la base de datos con datos insertados
 - Respuestas de endpoints probados
 
-Las evidencias se adjuntan en el documento `Evidencias.pdf`.
 
 ### 8.3 Incidencias detectadas y soluciones aplicadas
 Durante el desarrollo aparecieron varias incidencias:
@@ -240,6 +239,6 @@ El proyecto dispone ya de una base funcional suficiente para demostrar la conexi
 Como mejoras futuras se plantean:
 
 - Seguridad con Spring Security
-- Cifrado de contrasenas
+- Cifrado de contraseñas
 - Validaciones mas completas
 - Mas pruebas automaticas y cobertura real

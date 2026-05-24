@@ -10,16 +10,12 @@ public class Componente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String nombre;
 
-    @Column(nullable = false)
     private String tipo;
 
-    @Column(nullable = false)
     private String estado;
 
-    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     public Long getId() { return id; }

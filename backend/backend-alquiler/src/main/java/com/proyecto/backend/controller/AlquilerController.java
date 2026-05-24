@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,14 +27,18 @@ import com.proyecto.backend.repository.UsuarioRepository;
 @CrossOrigin
 public class AlquilerController {
 
-    @Autowired
-    private AlquilerRepository alquilerRepository;
+    private final AlquilerRepository alquilerRepository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private ComponenteRepository componenteRepository;
+    private final ComponenteRepository componenteRepository;
+
+    public AlquilerController(AlquilerRepository alquilerRepository, UsuarioRepository usuarioRepository,
+            ComponenteRepository componenteRepository) {
+        this.alquilerRepository = alquilerRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.componenteRepository = componenteRepository;
+    }
 
     @GetMapping
     public List<Alquiler> getAll() {

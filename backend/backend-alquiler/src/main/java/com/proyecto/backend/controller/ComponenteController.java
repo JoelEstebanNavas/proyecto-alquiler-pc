@@ -2,7 +2,6 @@ package com.proyecto.backend.controller;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -15,11 +14,14 @@ import com.proyecto.backend.repository.ComponenteRepository;
 @CrossOrigin
 public class ComponenteController {
 
-    @Autowired
-    private ComponenteRepository repo;
+    private final ComponenteRepository repo;
 
-    @Autowired
-    private AlquilerRepository alquilerRepository;
+    private final AlquilerRepository alquilerRepository;
+
+    public ComponenteController(ComponenteRepository repo, AlquilerRepository alquilerRepository) {
+        this.repo = repo;
+        this.alquilerRepository = alquilerRepository;
+    }
 
     @GetMapping
     public List<Componente> getAll() {

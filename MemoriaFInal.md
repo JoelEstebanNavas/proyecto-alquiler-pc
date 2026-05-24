@@ -1,21 +1,21 @@
 # Memoria Segunda Entrega
 
 ## 1. Introduccion
-Esta segunda entrega corresponde a la fase de desarrollo e implementacion del proyecto `Alquiler PC`. El objetivo del sistema es permitir la gestion de componentes informaticos, usuarios y alquileres mediante una aplicacion distribuida en capas.
+Esta segunda entrega corresponde a la fase de desarrollo e implementacion del proyecto `Alquiler PC`. El objetivo del sistema es permitir la gestion de componentes informaticos, usuarios y alquileres mediante una aplicacion web dividida en varias capas.
 
-El proyecto se ha desarrollado con una arquitectura cliente-servidor sencilla, empleando tecnologias web en el frontend, Spring Boot en el backend y MySQL como sistema de persistencia.
+El proyecto se ha desarrollado con una arquitectura cliente-servidor sencilla, usando tecnologias web en el frontend, Spring Boot en el backend y MySQL para guardar la informacion.
 
 ## 2. Diseno definitivo del sistema
-El sistema se ha planteado para cubrir la gestion de recursos de hardware dentro de un entorno de alquiler. La solucion queda estructurada en tres bloques principales:
+El sistema se ha planteado para cubrir la gestion de recursos de hardware dentro de un entorno de alquiler. La aplicacion se organiza en tres bloques principales:
 
 - Interfaz de usuario para operaciones basicas.
 - Backend REST para el procesamiento de peticiones.
 - Base de datos relacional para el almacenamiento de la informacion.
 
-En la version actual se encuentran implementadas las operaciones basicas sobre componentes y se ha dejado preparada la base de usuarios y alquileres para continuar su ampliacion.
+En la version actual estan implementadas las operaciones principales sobre componentes, usuarios y alquileres, dejando la aplicacion lista para seguir ampliandose si fuera necesario.
 
 ## 3. Arquitectura software final
-La arquitectura utilizada sigue el modelo cliente-servidor con separacion por capas:
+La arquitectura del proyecto sigue un modelo cliente-servidor con separacion por capas:
 
 - Capa de presentacion:
   Archivos HTML, CSS y JavaScript situados en la carpeta `frontend/`.
@@ -34,7 +34,7 @@ La arquitectura utilizada sigue el modelo cliente-servidor con separacion por ca
 5. La respuesta se devuelve al frontend en formato JSON.
 
 ## 4. Modelo de datos definitivo
-El modelo de datos se compone de tres entidades principales:
+El modelo de datos se basa en tres entidades principales:
 
 ### 4.1 Componente
 Representa un recurso disponible para alquiler.
@@ -56,7 +56,7 @@ Campos:
 - `rol`
 
 ### 4.3 Alquiler
-Representa la relacion entre un usuario y un componente durante un periodo concreto.
+Representa el alquiler de un componente por parte de un usuario durante un periodo concreto.
 
 Campos:
 - `id`
@@ -78,7 +78,7 @@ Se ha incluido un diagrama de clases editable en:
 
 - `uml/diagrama-clases.puml`
 
-Este diagrama representa las entidades principales del sistema y sus relaciones. Puede exportarse a imagen para incorporarlo como evidencia visual en la entrega final.
+Este diagrama representa las entidades principales del sistema y sus relaciones. Se ha utilizado como apoyo para entender mejor la estructura del proyecto.
 
 ## 6. Implementacion
 
@@ -110,7 +110,7 @@ proyecto-alquiler-pc/
 ```
 
 ### 6.2 Desarrollo de las funcionalidades principales
-Las funcionalidades implementadas actualmente son:
+Las funcionalidades que tiene la aplicacion actualmente son:
 
 - Alta de componentes mediante formulario web.
 - Consulta de componentes desde el frontend.
@@ -121,7 +121,7 @@ Las funcionalidades implementadas actualmente son:
 - Alquiler de componentes disponibles por parte del usuario.
 
 ### 6.3 Integracion entre capas
-La integracion entre capas se realiza de la siguiente forma:
+La conexion entre las distintas capas funciona de la siguiente manera:
 
 - El frontend consume endpoints REST del backend.
 - Los controladores reciben y responden peticiones HTTP.
@@ -129,7 +129,7 @@ La integracion entre capas se realiza de la siguiente forma:
 - Las entidades JPA representan las tablas del modelo relacional.
 
 ### 6.4 Gestion de usuarios y control de acceso
-Se ha implementado una base funcional para usuarios:
+Se ha implementado una base funcional para los usuarios del sistema:
 
 - Registro de usuario mediante endpoint `POST /api/auth/register`
 - Login mediante endpoint `POST /api/auth/login`
@@ -137,12 +137,12 @@ Se ha implementado una base funcional para usuarios:
 - Restriccion basica para que solo `ADMIN` pueda anadir componentes
 - Restriccion basica para que solo `USER` pueda alquilar componentes
 
-El control de acceso es basico y no incluye seguridad avanzada, cifrado de contrasenas ni sesiones protegidas. Esta parte queda como posible mejora futura.
+El control de acceso es basico y no incluye seguridad avanzada, cifrado de contrasenas ni sesiones protegidas. Se ha priorizado que la funcionalidad principal quede operativa y clara.
 
 ## 7. Base de datos
 
 ### 7.1 Relaciones y restricciones
-Se han definido restricciones basicas para mantener la coherencia de los datos:
+Se han definido restricciones basicas para mantener la coherencia entre los datos:
 
 - `nombre`, `tipo` y `estado` obligatorios en `Componente`
 - `nombre`, `email`, `password` y `rol` obligatorios en `Usuario`
@@ -157,7 +157,7 @@ El proyecto incluye los siguientes scripts:
 - `database/datos_prueba.sql`
 
 ### 7.3 Datos de prueba
-Los datos de prueba permiten validar:
+Los datos de prueba se han utilizado para comprobar:
 
 - Componentes disponibles y alquilados
 - Usuarios con distintos roles
@@ -170,7 +170,7 @@ El plan de pruebas se ha recogido en el archivo:
 
 - `PRUEBAS.md`
 
-Incluye pruebas manuales de:
+Incluye pruebas manuales sobre:
 - Carga de componentes
 - Alta de componente
 - Validacion de formulario
@@ -181,7 +181,7 @@ Incluye pruebas manuales de:
 - Verificacion de datos en MySQL
 
 ### 8.2 Evidencias
-Para completar la entrega deben adjuntarse evidencias como:
+Las evidencias de la aplicacion incluyen:
 
 - Capturas del frontend funcionando
 - Captura del login
@@ -191,7 +191,7 @@ Para completar la entrega deben adjuntarse evidencias como:
 Las evidencias se adjuntan en el documento `Evidencias.pdf`.
 
 ### 8.3 Incidencias detectadas y soluciones aplicadas
-Durante el desarrollo se detectaron las siguientes incidencias:
+Durante el desarrollo aparecieron varias incidencias:
 
 - Problemas de codificacion de caracteres en el frontend
 - Clases de usuarios y alquileres vacias en una fase inicial
@@ -199,7 +199,7 @@ Durante el desarrollo se detectaron las siguientes incidencias:
 - Problemas puntuales de conexion entre Spring Boot y MySQL
 - Necesidad de ajustar la interfaz para diferenciar las acciones de `ADMIN` y `USER`
 
-Soluciones aplicadas:
+Para resolverlas se hicieron los siguientes cambios:
 
 - Normalizacion de textos para evitar caracteres conflictivos
 - Implementacion basica de entidades, repositorios y controladores
@@ -235,7 +235,7 @@ Configuracion actual:
 - `spring.jpa.hibernate.ddl-auto=update`
 
 ## 10. Estado actual y mejoras futuras
-El proyecto dispone ya de una base funcional suficiente para demostrar la integracion entre presentacion, logica de negocio y acceso a datos. La parte de componentes esta operativa y las entidades de usuarios y alquileres han quedado preparadas con una implementacion inicial.
+El proyecto dispone ya de una base funcional suficiente para demostrar la conexion entre presentacion, logica de negocio y acceso a datos. La gestion de componentes esta operativa y la parte de usuarios y alquileres tambien funciona de forma basica.
 
 Como mejoras futuras se plantean:
 

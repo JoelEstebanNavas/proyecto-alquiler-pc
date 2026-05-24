@@ -18,8 +18,9 @@ proyecto-alquiler-pc/
 |- backend/backend-alquiler/
 |- database/
 |- uml/
-|- ENTREGA_2.md
+|- MemoriaFInal.md
 |- PRUEBAS.md
+|- Evidencias.pdf
 ```
 
 ## Requisitos
